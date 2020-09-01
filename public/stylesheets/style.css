@@ -1,8 +1,166 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@charset "utf-8";
+
+* {margin: 0; padding: 0;   box-sizing: border-box;  } 
+/* layout */
+header {
+  height: 80px;
+  background: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  box-shadow: 0 2px 4px 0 hsla(0,0%,80.8%,.5);
+}
+footer {
+  padding: 40px 0;
+  background: #303740;
+  color: #bdbdbd;
+}
+header .container {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1500px;
 }
 
-a {
-  color: #00B7FF;
+/* header */
+header .mainLogo {}
+.leftMenu, .rightMenu {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
+.leftMenu > div, .rightMenu > div {
+  margin-left: 20px;
+
+}
+.rightMenu {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mainLogo {
+  padding: 20px 0px;
+}
+/* 강의들 */
+.mainNavigation {
+  display: flex;
+}
+.mainNavigation .item {
+  position: relative;
+  width: auto;
+  padding: 25px 0;
+  padding-right: 30px;
+  box-sizing: border-box;
+  margin-left: 28px;
+}
+.mainNavigation .item{
+  font-weight: bold;
+  font-size: 20px;
+}
+.mainNavigation .item .icon_downArrow {
+  position: absolute;
+  top: 35%;
+  right: 0;
+}
+.mainNavigation .item ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: #ffffff;
+  width: 180px;
+  height: 410px;
+  box-shadow: 8px 5px 8px 1px rgba(0,10,18,.1), 0 0 0 1px rgba(0,10,18,.1);
+}
+.mainNavigation .item ul li {
+  padding: 6px 10px;
+  font-size: 16px;
+}
+.mainNavigation .item ul.detailNav {
+  left: 100%;
+  top: 0;
+}
+
+/* 오른쪽 메뉴 */
+/* 검색 */
+.searchContent { position: relative;}
+.searchContent .icon_search {position: absolute; right: 10px; top: 35%;}
+#search {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 10px 4px;
+  height: 40px;
+  margin-top: 20px;
+  font-size: 16px;
+  border: 0;
+  background: #f6f6f6;
+}
+.button {
+  border: 1px solid #666;
+  border-radius: 4px;
+  margin: 20px 0px;
+  padding: 7px 20px;
+  /* width: 80px; */
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.joinButton {
+  background: #ff7867;
+  color:#fff;
+}
+
+/* footer */
+footer .container > div { margin-bottom: 10px;}
+.agreeContainer > span {
+  border-right: 1px solid #bdbdbd;
+  font-weight: bold;
+  padding: 0 10px;
+}
+ 
+
+/* common */
+
+#icon_brand_logo path {
+  fill: #1dc078
+}
+.greenColor {
+  color: #1dc078
+}
+
+/* IR 효과 */
+.ir_pm {display:block; overflow:hidden; font-size:0; line-height:0; text-indent:-9999px;} /* 의미있는 이미지의 대체 텍스트를 제공하는 경우(Phark Method) */
+.ir_wa {display:block; overflow:hidden; position:relative; z-index:-1; width:100%; height: 100%;} /* 의미있는 이미지의 대체 텍스트로 이미지가 없어도 대체 텍스트를 보여주고자 할 때(WA IR) */
+.ir_so {overflow: hidden; position:absolute; width:0; height:0; line-height:0; text-indent:-9999px;} /* 대체 텍스트가 아닌 접근성을 위한 숨김 텍스트를 제공할 때 */
+
+/* icon */
+.icon_downArrow {
+  background-image: url(/images/icon/icon_downArrow.png);
+  width: 22px;
+  height: 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.icon_search {
+  background-image: url(/images/icon/icon_search.png);
+  width: 21px;
+  height: 21px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* reset */
+a {color: #111; text-decoration: none; outline: none}
+a:hover, a:active {text-decoration: none; color:#111; background-color:transparent;}
+
+ul{
+  list-style:none;
+  margin: 0;
+  padding: 0;
+  }
+pre { font-family: auto;}
