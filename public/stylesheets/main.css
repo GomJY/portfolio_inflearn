@@ -1,0 +1,107 @@
+@charset "utf-8";
+#main > section {
+  margin-bottom: 40px;
+}
+#search div.search {
+  width: 64%;
+  min-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+#search div.search input {
+  width: 100%;
+  font-size: 16px;
+  padding: 4px 10px;
+  background: #e4f7ef;
+  border: 1px solid #b4e9d2;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  box-sizing: unset;
+}
+#search div.search .icon_search {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  position: absolute;
+  right: 10px;
+  top: 40%;
+}
+/* lecture */
+#lecture .container {
+  max-width: 1024px;
+}
+.lectureCard {
+  /* width: 230px;
+  height: 300px; */
+  padding: 10px
+}
+.lectureCard .tit {
+  font-size: 14.5px;
+  text-align: left;
+  margin-bottom: 0;
+  height: 50px;
+}
+.lectureCard img {
+  width: 100%;
+}
+.lectureCard .author {
+  height: 30px;
+  font-size: 14.5px;
+  color: #858585;
+}
+.lectureCard .price {
+  color:#175cbe;
+  font-weight: bold;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+  row-gap: 30px;
+}
+
+.banner {
+  margin-bottom: 8px;
+}
+.banner .main {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 4px;`
+}
+.banner .sub {
+  font-size: 14px;
+  color: #888;
+}
+/* question */
+.card {
+  position: relative;
+  /* width: 100%;
+  height: 100%; */
+  font-size: 14.5px;
+}
+
+#question .card {
+  border: 1px solid #1dc078;
+  padding: 10px;
+  border-radius: 8px;
+  /* width: 300px; */
+}
+#question .card .tit {
+  padding-left: 40px;
+  text-align: left;
+}
+#question .card .desc {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  height: 40px;
+}
+.questionLogo {
+  color: #ff5252 ;
+  font-size: 30px;
+  position: absolute;
+  top: 6px;
+  left: 10px;
+}

@@ -4,7 +4,7 @@ html(lang="ko")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=ds, initial-scale=1.0")
     link(rel='stylesheet', href='/stylesheets/style.css')
-    title 인프런2020 클론
+    title= title
   body
    header
     .container 
@@ -56,15 +56,15 @@ html(lang="ko")
               span.icon_downArrow.ir_pm 자세히 아이콘
       .rightMenu
         .searchContent
-          input#search(type="text", name="search")
+          input#searchText(type="text", name="search")
           span.icon_search.ir_pm 검색
         .loginButton.button 로그인
-        .joinButton.button 회원가입
+        a(href="/join").joinButton.button 회원가입
+          
 
 
-
-   block content
-
+   section#body
+      block content
    section.modal
    section#layer-login.modal-layer
     .logo
@@ -88,7 +88,7 @@ html(lang="ko")
       button 애플 로그인
     #joinTab.linkGuideTab
       div.desc 아직 인프런 회원이 아니신가요?
-      a(href="/find/pass") 회원가입하기
+      a(href="/join") 회원가입하기
     
     button.closeButton X
       

@@ -1,0 +1,35 @@
+extends mainLayout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/join.css")
+  section#join
+    .tit 회원가입
+    .container
+      .join
+        form(action="/join" method="POST")
+          .item
+            label(for="email") 이메일
+            input#email.inputBox(type="text", name="email")
+          .item
+            label(for="email") 이메일 확인
+            input#email_re.inputBox(type="text",)
+          .item
+            label(for="email") 비밀번호
+            input#password.inputBox(type="password", name="password")
+          .item
+            label(for="email") 비밀번호 확인
+            input#password_re.inputBox(type="password") 
+          .item
+            .submitBox
+              input(type="submit", value="가입하기")
+              div 
+                span 가입하기를 클릭함으로써 인프런의 
+                span.boldGreenColor 이용약관
+                span ,
+                span.boldGreenColor 개인정보취급방침
+                span 에 동의합니다.
+      .authJoin
+        button.authGoogle 구글 가입
+        button.authFacebook 페이스북 가입
+        button.authGithub 깃허브 가입
+        button.authApple 애플 가입

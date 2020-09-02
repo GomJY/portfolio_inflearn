@@ -1,0 +1,80 @@
+extends mainLayout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/main.css")
+  section#main
+    section#search
+      .container
+        .tit 인프런에서 연봉을 올리세요
+        .search
+          input#searchText(type="text", name="search")
+          span.icon_search.ir_pm 검색
+    
+    section#lecture
+      .container
+        .banner
+          .main 모든 강의 보기
+          .sub 다양한 강의를 인프런에서는 준비되습니다.
+        .gridContainer
+          .lectureCard
+            a(href="/lecture/spring")
+              .image
+                img(src="/images/lecture/spring1.png", alt="spring1")
+              .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
+              .author 백기선
+              .score(value=5)
+              .price ₩24,750
+          .lectureCard
+            a(href="/lecture/spring")
+              .image
+                img(src="/images/lecture/spring1.png", alt="spring1")
+              .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
+              .author 백기선
+              .score(value=5)
+              .price ₩24,750
+          .lectureCard
+            a(href="/lecture/spring")
+              .image
+                img(src="/images/lecture/spring1.png", alt="spring1")
+              .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
+              .author 백기선
+              .score(value=5)
+              .price ₩24,750
+          .lectureCard
+            a(href="/lecture/spring")
+              .image
+                img(src="/images/lecture/spring1.png", alt="spring1")
+              .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
+              .author 백기선
+              .score(value=5)
+              .price ₩24,750
+
+    
+    section#question
+      .container
+        .banner
+          .main 최근 묻고 답하기
+          .sub 서로 소통하며 코딩 능력 && 소통 능력 == true
+        .gridContainer
+          .card
+            .tit
+              span.logo.questionLogo Q.
+              span 질문
+            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
+          .card
+            .tit
+              span.logo.questionLogo Q.
+              span 질문
+            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
+          .card
+            .tit
+              span.logo.questionLogo Q.
+              span 질문
+            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
+          .card
+            .tit
+              span.logo.questionLogo Q.
+              span 질문
+            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만 이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만
+
+

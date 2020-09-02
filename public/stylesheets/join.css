@@ -1,0 +1,65 @@
+@charset "utf-8";
+#join .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+}
+#join .container > div {
+  width: 100%;
+  height: 400px;
+}
+#join .tit {
+  color: #5d5f5d;
+  margin-bottom: 60px;
+}
+.join .item {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.join .item label {
+  width: 120px;
+  font-size: 18px;
+  height: 46px;
+  line-height: 46px;
+}
+.join .item .inputBox, .authJoin > button {
+  width: 300px;
+  height: 46px;
+  padding: 4px 8px;
+}
+.join .item .submitBox {
+  width: 360px;
+}
+.join .item:last-child input[type=submit] {
+  width: 100%;
+  height: 55px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  border: 0;
+  background: #1dc078; 
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.authJoin {
+  padding-left: 40px;
+} 
+.authJoin > button {
+  display: block;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+.join input, .authJoin button {
+  border: 1px solid #d5d5d5;
+}
+.authGoogle { background: #c65545;}
+.authFacebook { background: #335ca6;}
+.authGithub { background: #3c4043;}
+button.authApple { background: #fff; color: #111;}

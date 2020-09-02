@@ -18,12 +18,14 @@ header .container {
   display: flex;
   align-items: center;
   flex: 1 1 auto;
+  max-width: 1500px;
 
 }
+#body { min-height: 800px; padding: 60px 0;}
 .container {
   width: 80%;
   margin: 0 auto;
-  max-width: 1500px;
+  max-width: 1024px;
 }
 
 /* header */
@@ -33,9 +35,8 @@ header .mainLogo {}
   width: 100%;
   height: 100%;
 }
-.leftMenu > div, .rightMenu > div {
+.leftMenu > div, .rightMenu > div, .rightMenu > a {
   margin-left: 20px;
-
 }
 .rightMenu {
   display: flex;
@@ -88,7 +89,7 @@ header .mainLogo {}
 /* 검색 */
 .searchContent { position: relative;}
 .searchContent .icon_search {position: absolute; right: 10px; top: 35%;}
-#search {
+#searchText {
   box-sizing: border-box;
   width: 200px;
   padding: 10px 4px;
@@ -189,7 +190,7 @@ footer .container > div { margin-bottom: 10px;}
   top: 4%;
 }
 .modal {
-  /* display: none; */
+  display: none;
   z-index: 500;
   height: 100vh;
   width: 100vw;
@@ -199,7 +200,7 @@ footer .container > div { margin-bottom: 10px;}
   background-color: rgba(0, 0, 0, 0.6);
 }
 .modal-layer {
-  /* display: none; */
+  display: none;
   position: absolute;
   z-index: 600;
   top: 15vh;
@@ -212,12 +213,20 @@ footer .container > div { margin-bottom: 10px;}
 }
 
 /* common */
-
 #icon_brand_logo path {
   fill: #1dc078
 }
 .greenColor {
   color: #1dc078
+}
+.boldGreenColor {
+  color: #1dc078;
+}
+section .tit { 
+  text-align: center; 
+  font-size: 28px; 
+  font-weight: bold;
+  margin-bottom: 25px;
 }
 
 /* IR 효과 */
