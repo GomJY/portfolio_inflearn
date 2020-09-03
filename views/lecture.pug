@@ -1,0 +1,112 @@
+extends mainLayout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/lecture.css")
+  section#headerInfo
+    .container
+      .mainImage
+        .bg
+          img(src="/images/lecture/nodebirds.png", alt="강의이미지")
+        .center
+          <span class="infd-icon"><svg width="100" fill="rgba(0, 0, 0, 0.5)" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="play-circle" class="svg-inline--fa fa-play-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="rgba(0, 0, 0, 0.5)" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"></path></svg></span>
+      .mainInfo
+        .tit [리뉴얼]React로 NodeBird SNS 만들기
+        .desc
+          .item
+            span.col 스킬태그
+            span.val React, Redux, Next.js, Node.js, Express, Full-stack
+
+  section#bodyInfo
+    .container
+      .header_nav
+        div.on 강의소개
+        div 교육과정
+      
+      .lectureInfo.layer
+        .info.box
+          .tit 이 강의는
+          .desc 리액트 & 넥스트 & 리덕스 & 리덕스사가 & 익스프레스 스택으로 트위터와 유사한 SNS 서비스를 만들어봅니다. 끝으로 검색엔진 최적화 후 AWS에 배포합니다.
+      
+        .authInfo
+          .main_tit 지식공유자 소개
+          .profile
+            .profile_img  
+              img(src="/images/profile/zerocho.png", alt="프로필 이미지", srcset="")
+            .profile_name Zerocho
+        
+        .lectureList
+          .main_tit 교육과정
+          .totalInfo
+            span.total_num
+              span.val 10
+              span.col 강의
+            span.total_time
+              span.val.hour 22
+              span.col 시간
+              span.val.hour 33
+              span.col 분
+          .section
+            .section_list
+              .section_main
+                .main_tit 섹션 0. Hello, Next.js
+                .totalInfo 
+                  .total_num
+                    span.val 7
+                    span.col 강의
+                  .total_time
+                    span.icon_time.icon
+                    span 78:22
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07
+          
+          .section
+            .section_list
+              .section_main
+                .main_tit 섹션 0. Hello, Next.js
+                .totalInfo 
+                  .total_num
+                    span.val 7
+                    span.col 강의
+                  .total_time
+                    span.icon_time.icon
+                    span 78:22
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07
+              .section_item
+                span.icon_play.icon
+                span.tit 리뉴얼 강좌 소개
+                span.totalInfo
+                  .total_time
+                    span.icon_time.icon
+                    span 11:07

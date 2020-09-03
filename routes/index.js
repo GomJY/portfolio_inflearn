@@ -8,5 +8,8 @@ router.get('/', function(req, res, next) {
 router.get('/join', function(req, res, next) {
   res.render('join', { title: '인프런 클론 - 회원가입' });
 });
+router.get('/lecture/test', function(req, res, next) {
+  res.render('lecture', { title: '인프런 클론 - 강의' });
+});
 
 module.exports = router;
