@@ -2,15 +2,9 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
+require('dotenv').config();
 
 const port = 5901;
-
-//1.routing_middleware require
-// const routingGroup =  {
-//   index : require('./routes/index'),
-//   user  :require('./routes/users'),
-// }
 
 const routingGroup = new Object();
 routingGroup.index = require('./routes/index');

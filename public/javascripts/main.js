@@ -49,7 +49,17 @@ section_items.forEach(item => item.addEventListener('click', (e) => {
   videoPlayer.src = `/video/${video_author}/${video_lecture}/${video_lecture}_${video_index}.mp4`;
 }));
 
-document.querySelector(".videoLayerClose").addEventListener("click", e => {
+document.querySelector(".videoLayerClose").addEventListener("click", e => videoParse());
+// 질문하기
+document.querySelector(".questionButton").addEventListener("click", e => {
+  document.querySelector("#layer-question").style.display = "block";
+  videoParse();
+});
+document.querySelector(".questionLayerClose").addEventListener("click", e => {
+  document.querySelector("#layer-question").style.display = "none";
+});
+
+function videoParse() {
   let videoPlayer = document.querySelector("#videoPlayer");
   videoPlayer.pause();
-});
+}

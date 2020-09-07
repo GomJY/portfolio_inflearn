@@ -21,7 +21,7 @@ block content
           .priceGroup
             .price 38,500원
           .buttonGroup
-            button.button.button_registration 수강신청
+            button.button.button_registration.greenButton 수강신청
             button.button.button_like 좋아요 86
             button.button.button_share 공유하기
           .infoGroup
@@ -32,7 +32,7 @@ block content
               strong 18분
               span  수업
               
-  include ./play
+  include ./layer_videoPlayer
 
   section#bodyInfo
     .container
@@ -40,12 +40,13 @@ block content
         div.on 강의소개
         a(href="#lectureList")
           div 교육과정
-      
+        a(href="#QnA") 
+          div.questionButton 질문 & 답변
+      //- lectureInfo 
       .lectureInfo.layer
         .info.box
           .tit 이 강의는
-          .desc 리액트 & 넥스트 & 리덕스 & 리덕스사가 & 익스프레스 스택으로 트위터와 유사한 SNS 서비스를 만들어봅니다. 끝으로 검색엔진 최적화 후 AWS에 배포합니다.
-      
+          .desc 리액트 & 넥스트 & 리덕스 & 리덕스사가 & 익스프레스 스택으로 트위터와 유사한 SNS 서비스를 만들어봅니다. 끝으로 검색엔진 최적화 후 AWS에 배포합니다.     
         .authInfo
           .main_tit 지식공유자 소개
           .profile
@@ -96,3 +97,38 @@ block content
                   .total_time
                   span.icon_time.icon
                   span 11:07
+
+      //- Q & A
+      .layer#QnA
+        .main_tit 질문과답변
+        .QnA
+          form(action="./question", method="get")
+            input#searchText(type="text", name="qna_search")
+            input.button.greenButton(type="submit", value="검색")
+          .cardList
+            a(href="/lectureName/1")
+              .card
+                .authorIcon
+                  img(src="/images/profile/default_profile.png", alt="사용자 이미지")
+                .content
+                  p
+                  .top
+                    span.tit 강의 내용정리
+                    span.author
+                      strong ambac244
+                    span.time 2일전
+                  pre.descript
+                    | 강의를 들으면서 강의 내용을 사용해 보고 싶어서 JS를 사용해서 알고리즘 문제를 가끔 풀어보는데 의문이 생겨 질문 남깁니다.
+                    | let n = 9;
+                    | let graph = Array(n).fill(Array(n).fill(0)));
+                    | 위처럼 정의했을 경우 graph[0][1] = 1을 하면 graph[0 ~ 9][1] 모든 값이 1로 바뀝니다.
+                    | 하지만
+                    | let graph = Array(n).fill(0).map(e => Array(n).fill(0));
+                    | 로 정의하였을때는 graph[0][1] = 1을 하면 graph[0][1] 값만 1로 바뀝니다.
+                    | 혹시 그 이유를 알수 있을까요? 제가 나름 인터넷에 찾아봤는데 정확한 이유를 찾지못하여 답답해 하던중 질문 남깁니다.
+                .bottomInfo
+                  span
+                    span.icon_question
+                      svg.svg-inline--fa.fa-comment.fa-w-16(aria-hidden='true', data-prefix='fas', width='16', data-icon='comment', role='img', xmlns='http://www.w3.org/2000/svg', viewBox='0 0 512 512')
+                        path(fill='currentColor', d='M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32z')
+                    span.question_num 3
