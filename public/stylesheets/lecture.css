@@ -15,6 +15,14 @@
   display: flex;
   flex: 1 auto;
 }
+.mainContainer {
+  width: 66.7%;
+  display: flex;
+  flex: 1 auto;
+}
+.buttonMenu {
+  width: 33.3%;
+}
 .mainImage {
   position: relative;
   width: 295px;
@@ -32,6 +40,7 @@
   color: #fff;
   font-weight: bold;
 }
+.mainInfo .tit { font-size: 24px; text-align: left;}
 .mainInfo .col {
   display: inline-block;
   padding-right: 20px;
@@ -43,9 +52,9 @@
   display: flex;
   border-bottom: 1px solid #666;
 }
-.header_nav > div {
+.header_nav div {
   padding: 20px;
-  font-style: 14px;
+  font-size: 16px;
   margin-bottom: -1px;
 }
 .header_nav > div.on {border-bottom: 3px solid #1dc078; font-weight: bold;}
@@ -101,10 +110,12 @@
   font-size: 24px;
 }
  /*lectureList*/
-.totalInfo, .section {
+.totalInfo, .section, .section_item span {
   color: #595959;
   font-weight: bold;
 }
+
+
 .totalInfo {
   text-align: right;
   padding: 20px 0;
@@ -133,6 +144,7 @@
   padding: 20px 40px;
   border-bottom: 1px solid #fbfbfb;
   position: relative;
+  cursor: pointer;
 }
 .section_item .tit {
   font-size: 18px;
@@ -154,3 +166,67 @@ left: 10px;
   height: 20px;
   margin-right: 4px;
 }
+
+.fixedMenu {
+  position: fixed;
+  top: 89px;
+  background: #ffffff;
+  width: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.05);
+  border: 1px solid #e9ecef;
+  padding: 20px 24px;
+  /* right: 10%; */
+}
+.fixedMenu > div {
+  margin-bottom: 20px;
+  width: 270px;
+  
+}
+.priceGroup {
+}
+.priceGroup .price {
+  font-size: 30px;
+  font-weight: bold;
+}
+.buttonGroup { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 48px);
+  gap: 10px;
+} 
+.buttonGroup .button { height: 100%; margin: 0; background: #fff; border: 1px solid #aaa;}
+.buttonGroup .button_registration { 
+  grid-column: 1/ span 2;
+  background: #00c471;
+  color: #fff;
+  border: 0;
+}
+.infoGroup .info_line {     
+  font-size: 14px;
+  color: #868e96;
+  margin-bottom: 4px;
+}
+
+#layer-video {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+}
+#layer-video .menuContainer {
+  background: #000;
+  height: 10%;
+}
+#layer-video .closeButton {color: #fff; font-size: 30px;}
+.topMenu {}
+.topMenu .tit { color: #fff; font-size: 24px; padding-top: 4vh;}
+#layer-video .videoContainer {
+  height: 80%;
+}
+#layer-video .videoContainer video {
+  width: 100%;
+  height: 100%;
+}
+.bottomMenu .buttonGroup { grid-template-rows: 1fr; height: 100%; gap: 0;}
+.bottomMenu .buttonGroup Button { background: transparent; color: #fff; font-size: 28px; border: 0px;}

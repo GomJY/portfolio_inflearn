@@ -4,23 +4,42 @@ block content
   link(rel="stylesheet", href="/stylesheets/lecture.css")
   section#headerInfo
     .container
-      .mainImage
-        .bg
-          img(src="/images/lecture/nodebirds.png", alt="강의이미지")
-        .center
-          <span class="infd-icon"><svg width="100" fill="rgba(0, 0, 0, 0.5)" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="play-circle" class="svg-inline--fa fa-play-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="rgba(0, 0, 0, 0.5)" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"></path></svg></span>
-      .mainInfo
-        .tit [리뉴얼]React로 NodeBird SNS 만들기
-        .desc
-          .item
-            span.col 스킬태그
-            span.val React, Redux, Next.js, Node.js, Express, Full-stack
+      .mainContainer
+        .mainImage
+          .bg
+            img(src="/images/lecture/nodebirds.png", alt="강의이미지")
+          .center
+            <span class="infd-icon"><svg width="100" fill="rgba(0, 0, 0, 0.5)" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="play-circle" class="svg-inline--fa fa-play-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="rgba(0, 0, 0, 0.5)" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"></path></svg></span>
+        .mainInfo
+          .tit [리뉴얼]React로 NodeBird SNS 만들기
+          .desc
+            .item
+              span.col 스킬태그
+              span.val React, Redux, Next.js, Node.js, Express, Full-stack
+      .buttonMenu
+        .fixedMenu
+          .priceGroup
+            .price 38,500원
+          .buttonGroup
+            button.button.button_registration 수강신청
+            button.button.button_like 좋아요 86
+            button.button.button_share 공유하기
+          .infoGroup
+            .info_line 직식공유자: 
+              strong zerocho
+            .info_line 기간: 56회 수업 · 총 
+              strong 13시간  
+              strong 18분
+              span  수업
+              
+  include ./play
 
   section#bodyInfo
     .container
       .header_nav
         div.on 강의소개
-        div 교육과정
+        a(href="#lectureList")
+          div 교육과정
       
       .lectureInfo.layer
         .info.box
@@ -34,7 +53,7 @@ block content
               img(src="/images/profile/zerocho.png", alt="프로필 이미지", srcset="")
             .profile_name Zerocho
         
-        .lectureList
+        #lectureList.lectureList
           .main_tit 교육과정
           .totalInfo
             span.total_num
@@ -56,57 +75,24 @@ block content
                   .total_time
                     span.icon_time.icon
                     span 78:22
-              .section_item
+              .section_item(index="1_1" lecture="database1" author="egoing")
                 span.icon_play.icon
                 span.tit 리뉴얼 강좌 소개
                 span.totalInfo
                   .total_time
                     span.icon_time.icon
                     span 11:07
-              .section_item
+              .section_item(index="1_2" lecture="database1" author="egoing")
                 span.icon_play.icon
                 span.tit 리뉴얼 강좌 소개
                 span.totalInfo
                   .total_time
                     span.icon_time.icon
                     span 11:07
-              .section_item
+              .section_item(index="1_3" lecture="database1" author="egoing")
                 span.icon_play.icon
                 span.tit 리뉴얼 강좌 소개
                 span.totalInfo
                   .total_time
-                    span.icon_time.icon
-                    span 11:07
-          
-          .section
-            .section_list
-              .section_main
-                .main_tit 섹션 0. Hello, Next.js
-                .totalInfo 
-                  .total_num
-                    span.val 7
-                    span.col 강의
-                  .total_time
-                    span.icon_time.icon
-                    span 78:22
-              .section_item
-                span.icon_play.icon
-                span.tit 리뉴얼 강좌 소개
-                span.totalInfo
-                  .total_time
-                    span.icon_time.icon
-                    span 11:07
-              .section_item
-                span.icon_play.icon
-                span.tit 리뉴얼 강좌 소개
-                span.totalInfo
-                  .total_time
-                    span.icon_time.icon
-                    span 11:07
-              .section_item
-                span.icon_play.icon
-                span.tit 리뉴얼 강좌 소개
-                span.totalInfo
-                  .total_time
-                    span.icon_time.icon
-                    span 11:07
+                  span.icon_time.icon
+                  span 11:07
