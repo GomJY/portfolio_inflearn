@@ -28,7 +28,17 @@ header .container {
   margin: 0 auto;
   max-width: 1024px;
 }
-
+textarea { font-family: Arial;}
+.greenButton {
+  background: #00c471 !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+.orangeButton {
+ background: #f44336  !important; 
+ color: #fff !important;
+ border: 0 !important;
+}
 /* header */
 header .mainLogo {}
 .leftMenu, .rightMenu {
@@ -264,3 +274,4 @@ ul{
   padding: 0;
   }
 pre { font-family: auto;}
+button { cursor: pointer;}
