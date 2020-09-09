@@ -389,7 +389,7 @@ left: 10px;
   margin-left: 10px;
 }
 .create .main_tit {position: relative;}
-.create .main_tit input {
+.create .main_tit input, .create .tit input {
   width: 60%;
 }
 .create .main.buttonGroup {
@@ -413,7 +413,8 @@ left: 10px;
 .create .section_item {
   border-bottom: 1px solid #666;
 }
-.create .section_item .button_sectionRemove {
+.create .section_item .button_sectionRemove,
+.create .section_item .button_chapterRemove {
   position: absolute;
   font-size: 18px;
   right: 0;

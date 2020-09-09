@@ -2,15 +2,23 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const multer = require('multer');
 require('dotenv').config();
 
 const port = 5901;
 
+const passportConfig = require('./passport'); 
+
 const routingGroup = new Object();
 routingGroup.index = require('./routes/index');
 routingGroup.user = require('./routes/users');
+routingGroup.auth = require('./routes/auth');
+routingGroup.upload = require('./routes/upload');
 
 const app = express();
+passportConfig(passport);
 
 // view engine setup & port setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,11 +30,25 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //2.routing_middleware use
 app.use('/', routingGroup.index);
 app.use('/user', routingGroup.user);
+app.use('/auth', routingGroup.auth);
+app.use('/upload', routingGroup.upload);
 
 app.use((req, res, next) => {
   const err = new Error('!!!Not Found');

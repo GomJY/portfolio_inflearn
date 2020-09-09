@@ -263,6 +263,15 @@ section .tit {
   background-repeat: no-repeat;
   background-position: center;
 }
+.icon_default_profile {
+  background-image: url(/images/profile/default_profile.png);
+  width: 34px;
+  height: 34px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  background-size: cover;
+}
 
 /* reset */
 a {color: #111; text-decoration: none; outline: none}
@@ -275,3 +284,26 @@ ul{
   }
 pre { font-family: auto;}
 button { cursor: pointer;}
+
+/* profile */
+.profile {
+  display: flex;
+}
+.profile > div {
+  margin-top: 15px;
+}
+.profile .icon {
+  margin-top: 22px;
+}
+.profile .nickName {
+  font-weight: bold;
+  margin-left: 10px;
+}
+.createLecture > a {
+  display: block;
+  margin-top: 20px;
+}
+
+.logoutButton {
+  margin-left: 20px;
+}

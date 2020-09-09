@@ -6,13 +6,13 @@ block content
     .tit 회원가입
     .container
       .join
-        form(action="/join" method="POST")
+        form#form-join(action="/auth/join" method="POST")
           .item
             label(for="email") 이메일
             input#email.inputBox(type="text", name="email")
           .item
-            label(for="email") 이메일 확인
-            input#email_re.inputBox(type="text",)
+            label(for="nickname") 닉네임
+            input#nickname.inputBox(type="text", name="nickname")
           .item
             label(for="email") 비밀번호
             input#password.inputBox(type="password", name="password")
@@ -33,3 +33,6 @@ block content
         button.authFacebook 페이스북 가입
         button.authGithub 깃허브 가입
         button.authApple 애플 가입
+
+block script
+  script(src="/javascripts/join.js")

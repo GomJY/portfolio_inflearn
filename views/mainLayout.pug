@@ -59,8 +59,27 @@ html(lang="ko")
         .searchContent
           input#searchText(type="text", name="search")
           span.icon_search.icon.ir_pm 검색
-        .loginButton.button 로그인
-        a(href="/join").joinButton.button 회원가입
+        if users
+          if users.authority >= 200
+            .createLecture
+              a(href="/create/lecture").button.greenButton 강의 만들기
+            .profile
+              div.icon_default_profile.icon
+              div.nickName
+                p=users.nickname 
+                p="님 환영합니다."
+            a(href="/auth/logout").orangeButton.button.logoutButton 로그아웃
+          else if users.authority >= 100
+            a(href="/auth/update").button.greenButton 지식공유참여
+            .profile
+              div.icon_default_profile.icon
+              div.nickName
+                p=users.nickname 
+                p="님 환영합니다."
+            a(href="/auth/logout").orangeButton.button.logoutButton 로그아웃    
+        else 
+          .loginButton.button 로그인
+          a(href="/join").joinButton.button 회원가입
           
 
 
@@ -77,7 +96,7 @@ html(lang="ko")
     #loginTab
       form(action="/auth/login", method="post")
         input#id(type="text", name="id" placeholder="아이디")
-        input#password(type="password", name="id", placeholder="비밀번호")
+        input#password(type="password", name="password", placeholder="비밀번호")
         input(type="submit", value="로그인")
     #findPasswordTab.linkGuideTab
       div.desc 비밀번호를 잊어버리셨나요?
@@ -113,6 +132,7 @@ html(lang="ko")
           |주소 : 성남시 분당구 삼평동 판교역로 240 삼환하이팩스 A동 208-1호 ㅣ 이메일: info@inflearn.com
       .copyContainer  ©INFLAB. ALL RIGHTS RESERVED
 
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
   script(src="/javascripts/main.js")
   block script
 
