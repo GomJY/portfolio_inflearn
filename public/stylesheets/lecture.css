@@ -392,6 +392,9 @@ left: 10px;
 .create .main_tit input, .create .tit input {
   width: 60%;
 }
+.create #button_duplicate {
+  width: 30%;
+}
 .create .main.buttonGroup {
   display: block;
   position: absolute;

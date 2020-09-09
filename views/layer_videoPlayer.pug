@@ -9,15 +9,5 @@ section#layer-video.modal-layer
         Button.questionButton="질문하기"
         Button="다음강의 >"
     button.closeButton.videoLayerClose X 
-    section#layer-question.modal-layer
-      .container
-        .tit 질문하기
-        form(action="/question", method="post")
-          .tit
-            input#question_tit(type="text", name="tit" placeholder="질문 제목")
-          .descript
-            textarea#question_descript(name="descript" placeholder="질문 내용")
-          .submit
-            input(type="submit", value="작성완료")
-        .questionLayerClose X
+    
 

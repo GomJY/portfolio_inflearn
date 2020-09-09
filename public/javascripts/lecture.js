@@ -1,4 +1,3 @@
-
 // lecture-bodySelect
 setLayer(0);
 function setLayer(index) {
@@ -21,3 +20,10 @@ function showLectureLayer(index) {
   }
   layers[index].className = layers[index].className + " on";
 }
+document.querySelector(".button-lecture_question").addEventListener("click", e => {
+  e.preventDefault();     
+  e.stopPropagation();
+
+  document.querySelector("#layer-question").style.display = "block";
+  // modal_on(document.querySelector("#layer-question"));
+});

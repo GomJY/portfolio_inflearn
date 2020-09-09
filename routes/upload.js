@@ -8,7 +8,19 @@ let count = 0;
 var storage = multer.diskStorage({
   //경로 설정
   destination : function(req, file, cb){    
-    cb(null, 'upload/video/');
+    let mimeType = file.mimetype;
+  
+    switch(mimeType) {
+      case 'image/png':
+        cb(null, 'public/images/lecture');
+      break;
+      case 'image/jpg':
+        cb(null, 'public/images/lecture');
+      break;
+      default:
+        cb(null, 'upload/video/');
+      break;
+    }
   },
 
   //실제 저장되는 파일명 설정
@@ -16,7 +28,8 @@ var storage = multer.diskStorage({
 	//파일명 설정을 돕기 위해 요청정보(req)와 파일(file)에 대한 정보를 전달함
     console.log("===== fileName =====", ++count);
     try {
-      var testSn = `${req.body.title}`;
+      console.log(req.body);
+      var testSn = req.body.title;
       var testQn = req.body.chapter_name;
       var index = req.body.chapter_index;
       console.log('index', index);
@@ -25,15 +38,33 @@ var storage = multer.diskStorage({
       if(typeof testQn === "object") {
         testQn = testQn[testQn.length - 1];
       }
+      
+      // var mimeType = "mp4";
+      var mimeType = file.mimetype;
 
-      var mimeType = "mp4";
-      cb(null, testSn + "_" +index + "." + mimeType);
+      switch(mimeType) {
+        case 'image/png':
+          mimeType = "png";
+        break;
+        case 'image/jpg':
+          mimeType = "jpg";
+        break;
+        default:
+          mimeType = "mp4";
+        break;
+      }
+
+      if(mimeType == "mp4") {
+        cb(null, testSn + "_" +index + "." + mimeType);
+      } else {
+        cb(null, testSn + "." + mimeType);
+      }
     } catch(err) {console.log(err);} 
   }
 });
 
 var upload = multer({storage: storage});
-router.post('/lecture', upload.array('chapter_media'), async (req, res, next) => {
+router.post('/lecture', upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
   console.log("router======");
   console.log(req.body);
   // console.log(req.files);

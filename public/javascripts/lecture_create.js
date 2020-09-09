@@ -127,3 +127,14 @@ function template_create_chapter() {
   
   return temp;
 }
+function setThumbnail(event) { 
+  var reader = new FileReader(); 
+  reader.onload = function(event) { 
+    // var img = document.createElement("img"); 
+    var img = document.querySelector("#lectureImage");
+    img.setAttribute("src", event.target.result); 
+    // document.querySelector("div#image_container").appendChild(img); 
+  }; 
+  reader.readAsDataURL(event.target.files[0]); 
+}
+

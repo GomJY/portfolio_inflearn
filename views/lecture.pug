@@ -103,6 +103,7 @@ block content
           form(action="./question", method="get")
             input#searchText(type="text", name="qna_search")
             input.button.greenButton(type="submit", value="검색")
+            input.button-lecture_question.button.orangeButton(type="button", value="질문 만들기", style="position: absolute;right: 0;top: 20px;")
           .cardList
             a(href="/question/1")
               .card
@@ -248,7 +249,7 @@ block content
               span.button 5
             span.nextButton
               button.button.greenButton 다음페이지
-
+      include ./section_question
 block script
   script(src="/javascripts/lecture.js")
   script(src="/javascripts/video.js")
