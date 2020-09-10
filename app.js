@@ -13,7 +13,6 @@ const passportConfig = require('./passport');
 
 const routingGroup = new Object();
 routingGroup.index = require('./routes/index');
-routingGroup.user = require('./routes/users');
 routingGroup.auth = require('./routes/auth');
 routingGroup.upload = require('./routes/upload');
 routingGroup.question = require('./routes/question');
@@ -47,25 +46,28 @@ app.use(passport.session());
 
 //2.routing_middleware use
 app.use('/', routingGroup.index);
-app.use('/user', routingGroup.user);
 app.use('/auth', routingGroup.auth);
 app.use('/upload', routingGroup.upload);
 app.use('/question', routingGroup.question);
 
 app.use((req, res, next) => {
+  console.log("NotFound");
   const err = new Error('!!!Not Found');
   err.status = 404;
-  next(err);
+  // next(err);
+  res.render('notfound');
 });
 
 // error handler
 app.use((err, req, res) => {
+  console.log("ErrorFind");
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
+  res.render('notfound');
 });
 
 app.listen(app.get('port'), () => {

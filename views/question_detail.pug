@@ -5,8 +5,9 @@ block content
   //- Q & A
   #QnA
     .container
-      .tit 강의 내용정리
+      .tit=questionData[0].name
       .cardList
+        each data in questionData
           .card
             .authorIcon
               img(src="/images/profile/default_profile.png", alt="사용자 이미지")
@@ -14,42 +15,16 @@ block content
               p
               .top
                 span.author
-                  strong 작성자: ambac244
+                  strong=`작성자:${data.nickname}` 
                 span.time 2일전
-              pre.descript
-                | 강의를 들으면서 강의 내용을 사용해 보고 싶어서 JS를 사용해서 알고리즘 문제를 가끔 풀어보는데 의문이 생겨 질문 남깁니다.
-                | let n = 9;
-                | let graph = Array(n).fill(Array(n).fill(0)));
-                | 위처럼 정의했을 경우 graph[0][1] = 1을 하면 graph[0 ~ 9][1] 모든 값이 1로 바뀝니다.
-                | 하지만
-                | let graph = Array(n).fill(0).map(e => Array(n).fill(0));
-                | 로 정의하였을때는 graph[0][1] = 1을 하면 graph[0][1] 값만 1로 바뀝니다.
-                | 혹시 그 이유를 알수 있을까요? 제가 나름 인터넷에 찾아봤는데 정확한 이유를 찾지못하여 답답해 하던중 질문 남깁니다.
-          
-          .card
-            .authorIcon
-              img(src="/images/profile/default_profile.png", alt="사용자 이미지")
-            .content
-              p
-              .top
-                span.author
-                  strong 작성자: ambac244
-                span.time 2일전
-              pre.descript
-                | 강의를 들으면서 강의 내용을 사용해 보고 싶어서 JS를 사용해서 알고리즘 문제를 가끔 풀어보는데 의문이 생겨 질문 남깁니다.
-                | let n = 9;
-                | let graph = Array(n).fill(Array(n).fill(0)));
-                | 위처럼 정의했을 경우 graph[0][1] = 1을 하면 graph[0 ~ 9][1] 모든 값이 1로 바뀝니다.
-                | 하지만
-                | let graph = Array(n).fill(0).map(e => Array(n).fill(0));
-                | 로 정의하였을때는 graph[0][1] = 1을 하면 graph[0][1] 값만 1로 바뀝니다.
-                | 혹시 그 이유를 알수 있을까요? 제가 나름 인터넷에 찾아봤는데 정확한 이유를 찾지못하여 답답해 하던중 질문 남깁니다.
-          
-          .card.input_card
-            .main_tit 답변 작성하기
-            .tit
-              input#tit_text(type="text", name="tit_text" placeholder="질문 제목")
-            .textArea
-              textarea#descript_text(name="text", cols="30", rows="10" placeholder="질문 내용")
-            .submit
-              input.greenButton(type="submit", value="작성하기")
+              pre.descript=data.descript
+      .card.input_card
+        .main_tit 답변 작성하기
+        //- .tit
+        //-   input#tit_text(type="text", name="tit_text" placeholder="질문 제목")
+        .textArea
+          textarea#descript_text(name="text", cols="30", rows="10" placeholder="답변 내용")
+        .submit
+          input(type="hidden", name="lectures_id" value=`${questionData[0].lectures_id}`)
+          input(type="hidden", name="groupId" value=`${questionData[0].question_id}`)
+          input.greenButton(type="submit", value="작성하기")

@@ -1,4 +1,64 @@
-let isLectureDuplicate = true;
+$("#lecture").on("submit",async (e) => {
+  e.preventDefault();
+  let formData = new FormData(e.target);
+  formDataCheck(formData);
+  console.log(1);
+  if(!await duplicateCheck()) { 
+    console.log("duplicateCheck fail");
+    return; 
+  }
+  console.log(2);
+  if(!await sendImgFile()) { 
+    console.log("sendImgFile fail");
+    return;
+  }
+  console.log(3);
+
+  formData.delete("lecture_bg");
+  let url = location.origin + '/upload/lecture';
+  $.ajax({
+    type: "POST",
+    enctype: 'multipart/form-data',
+    url: url,
+    data: formData,
+    processData: false,
+    contentType: false,
+    cache: false,
+    success: function (data) {
+        console.log("SUCCESS : ", data);
+    },
+    error: function (e) {
+        console.log("ERROR : ", e);
+    }
+  });
+});
+function sendImgFile() {
+  let lecture_tit = $("#input_title").val();
+  let img_file = document.querySelector("#lecture_bg").files[0];
+  let url = location.origin + '/upload/lecture/img';
+  let formData = new FormData();
+  formData.append("title", lecture_tit);
+  formData.append("lecture_bg", img_file);
+
+  return new Promise((res, rej) => {
+    $.ajax({
+      type: "POST",
+      enctype: 'multipart/form-data',
+      url: url,
+      data: formData,
+      processData: false,
+      contentType: false,
+      cache: false,
+        success: function (data) {
+          console.log(data);
+          res(true);
+        },
+        error: function (e) {
+          rej(false);
+        }
+    });
+  });
+}
 
 document.querySelector(".button_sectionAdd").addEventListener("click", e=> {
   e.preventDefault();
@@ -10,30 +70,6 @@ function addSection() {
   lectureList.appendChild(section);
   resetInputName();
 }
-$("#button_duplicate").click(function (e) { 
-  e.preventDefault();
-  let lectureName = $("#input_title").attr("value");
-  if(lectureName.length == 0) {
-    alert("강의이름을 입력해주세요");
-  }
-  let data = {section: lectureName};
-  $.ajax({
-    url : location.origin + "/lecture/duplicate",
-    type: "POST",
-    data : data,
-    success: function(data, textStatus, jqXHR)
-    {
-      alert(data.message);
-      if(data.code == 200) {
-        isLectureDuplicate = false;
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown)
-    {
-      console.log(data);
-    }
-  });
-});
 
 function event_sectionRemove(e) {
   e.preventDefault();
@@ -130,11 +166,68 @@ function template_create_chapter() {
 function setThumbnail(event) { 
   var reader = new FileReader(); 
   reader.onload = function(event) { 
-    // var img = document.createElement("img"); 
     var img = document.querySelector("#lectureImage");
     img.setAttribute("src", event.target.result); 
-    // document.querySelector("div#image_container").appendChild(img); 
   }; 
   reader.readAsDataURL(event.target.files[0]); 
 }
 
+function formDataCheck(formData) {
+  let isCheck = {section: false, chapter: false};
+
+  for(let value of formData) {
+    console.log(value);
+    if(!value[1]) {
+      let input = $(`input[name=${value[0]}]`).attr("placeholder");
+      alert(`정해진 양식을 채우지 못하셨습니다.`);
+      return;
+    }
+    if(value[0] === "chapter_media") {
+      if(value[1].size == 0) {
+        alert(`챕터 중 강의영상을 안올린 곳이 있습니다.`);
+        return;
+      }else if(value[1].type !== "video/mp4") {
+        alert(`챕터 중 강의영상이 아닌 다른파일을 올린 곳이 있습니다.`);
+        return;
+      }
+    }
+    if(value[0] === "section_tit") {
+      isCheck.section = true;
+    } else if(value[0] === "chapter_name") {
+      isCheck.chapter = true;
+    }
+  }
+
+  if(!(isCheck.section && isCheck.chapter)) {
+    alert(`섹션과 챕터를 추가해주세요.`);
+    return;
+  }
+}
+
+function duplicateCheck() {
+  let url = location.origin + '/upload/lecture/duplicate';
+  let name = $("#input_title").val();
+  return new Promise((res, rej) => {
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: JSON.stringify({ name: name}),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+        success: function (data) {
+          console.log(data);
+          if(data.code === 200) {
+            res(true);
+          } else {
+            alert(data.message);
+            res(false);
+          }
+        },
+        error: function (e) {
+          alert("시스템에 문제가 발생하였습니다.");
+          rej(false);
+        }
+    });
+  });
+}
+  
