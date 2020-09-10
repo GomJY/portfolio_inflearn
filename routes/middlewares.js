@@ -24,7 +24,7 @@ exports.isLoggedIn_OnlyStudent = (req, res, next) => {
     }
 };
 
-exports.teacher_isLoggedIn = (req, res, next) => {
+exports.isLoggedIn_highTeacher = (req, res, next) => {
     if (req.isAuthenticated()) {
         if(req.user.authority >= 200)
             next();

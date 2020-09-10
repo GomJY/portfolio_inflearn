@@ -99,9 +99,9 @@ CREATE TABLE `questions` (
 CREATE TABLE `questions_comments` (
   `question_id` int NOT NULL,
   `commentId` int NOT NULL,
-  PRIMARY KEY (`question_id`),
-  KEY `comment_commeterId_idx` (`commentId`),
-  CONSTRAINT `comment_commetId` FOREIGN KEY (`commentId`) REFERENCES `questions` (`id`),
+  PRIMARY KEY (`commentId`),
+  KEY `comment_questionId_idx` (`question_id`),
+  CONSTRAINT `comment_commentId` FOREIGN KEY (`commentId`) REFERENCES `questions` (`id`),
   CONSTRAINT `comment_questionId` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```

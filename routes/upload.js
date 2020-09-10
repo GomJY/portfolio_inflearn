@@ -2,7 +2,7 @@ const express = require('express');
 var router = express.Router();
 var { QUERY, SET, VALUES } = require('../model');
 const multer = require('multer');	
-const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn } = require('./middlewares');
+const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
 let count = 0;
 
 //multer 의 diskStorage를 정의
@@ -65,11 +65,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage: storage});
-router.post('/lecture', teacher_isLoggedIn, upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
-  console.log("router======");
-  console.log(req.body);
-  // console.log(req.files);
-  // res.json(req.files);
+router.post('/lecture', isLoggedIn_highTeacher, upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
   // INSERT문 
   const lectures_INSERT = async ({name, price, descript, user_id}) =>
     (await QUERY`INSERT INTO lectures ${VALUES({name: name, price: price, descript: descript, user_id: user_id,createdTime: getNowDateTime(), updatedTime: getNowDateTime()})}`);
@@ -79,10 +75,8 @@ router.post('/lecture', teacher_isLoggedIn, upload.single('lecture_bg'),upload.a
   let { title, descript, price, section_tit, chapter_name, chapter_index } = req.body; 
   
   console.log(title, descript, price, section_tit);
-  // let lectures_sql =await lectures_INSERT({name: title, price: price, descript: descript, user_id: req.user.id});
   const lectures_sql =await lectures_INSERT({name: title, price: price, descript: descript, user_id: 5});
   let section_sql = [];
-  // let chapter_sql=[[], [], [], [], [], [], [], []];
   let chapter_sql=Array(section_tit.length).fill(null).map(() => Array());
   console.log("1. lectures_sql");
   console.log("lectures_sql.insertId.insertId", lectures_sql.insertId);
