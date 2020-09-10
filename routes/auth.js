@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 var { QUERY, SET } = require('../model');
 var router = express.Router();
-const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn, isLoggedIn_OnlyStudent} = require('./middleware');
+const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn, isLoggedIn_OnlyStudent} = require('./middlewares');
 
 //회원가입시에 수행되며 passport는 사용하지 않고 데이터베이스를 사용하기 위한 sequelize와 암호화를 위한 bcrypt모듈만이 사용된다.
 router.post('/join', isNotLoggedIn, async (req, res, next) => {

@@ -2,7 +2,7 @@ const express = require('express');
 var router = express.Router();
 var { QUERY, SET, VALUES } = require('../model');
 const multer = require('multer');	
-const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn } = require('./middleware');
+const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn } = require('./middlewares');
 let count = 0;
 
 //multer 의 diskStorage를 정의

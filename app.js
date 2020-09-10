@@ -16,6 +16,7 @@ routingGroup.index = require('./routes/index');
 routingGroup.user = require('./routes/users');
 routingGroup.auth = require('./routes/auth');
 routingGroup.upload = require('./routes/upload');
+routingGroup.question = require('./routes/question');
 
 const app = express();
 passportConfig(passport);
@@ -49,6 +50,7 @@ app.use('/', routingGroup.index);
 app.use('/user', routingGroup.user);
 app.use('/auth', routingGroup.auth);
 app.use('/upload', routingGroup.upload);
+app.use('/question', routingGroup.question);
 
 app.use((req, res, next) => {
   const err = new Error('!!!Not Found');
