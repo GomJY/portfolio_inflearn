@@ -1,7 +1,8 @@
 const express = require('express');
-var { QUERY, SET, VALUES } = require('../model');
 var router = express.Router();
+var { QUERY, SET, VALUES } = require('../model');
 const multer = require('multer');	
+const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn } = require('./middleware');
 let count = 0;
 
 //multer 의 diskStorage를 정의
@@ -64,7 +65,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage: storage});
-router.post('/lecture', upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
+router.post('/lecture', teacher_isLoggedIn, upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
   console.log("router======");
   console.log(req.body);
   // console.log(req.files);
@@ -114,7 +115,7 @@ router.post('/lecture', upload.single('lecture_bg'),upload.array('chapter_media'
       })
     );
   } else {
-    chapter_sql[0][0] = await chapters_INSERT(chapter_name, 0, section_sql[0].insertId);
+    chapter_sql[0][0] = await chapters_INSERT({name: chapter_name, index: 0, sections_id: section_sql[0].insertId});
   }
   res.json(chapter_sql);  
 });

@@ -3,9 +3,10 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 var { QUERY, SET } = require('../model');
 var router = express.Router();
+const { isLoggedIn, isNotLoggedIn, teacher_isLoggedIn, isLoggedIn_OnlyStudent} = require('./middleware');
 
 //회원가입시에 수행되며 passport는 사용하지 않고 데이터베이스를 사용하기 위한 sequelize와 암호화를 위한 bcrypt모듈만이 사용된다.
-router.post('/join', async (req, res, next) => {
+router.post('/join', isNotLoggedIn, async (req, res, next) => {
   let { email, password, nickname } = req.body;
 
   if(email.length === 0 
@@ -31,7 +32,7 @@ router.post('/join', async (req, res, next) => {
 });
 
 //로그인시 
-router.post('/login', (req, res, next) =>{
+router.post('/login', isNotLoggedIn, (req, res, next) =>{
     passport.authenticate('local', (authError, user, info) => {
         if(authError) {
             console.error(authError);
@@ -52,13 +53,13 @@ router.post('/login', (req, res, next) =>{
 });
 
 //로그아웃시에는 session을 비우고 passport로 인증을 해제 시킨다.
-router.get('/logout', (req, res, next) => {
+router.get('/logout', isLoggedIn, (req, res, next) => {
     console.log(`router.get('/logout'`);
     req.logout();
     req.session.destroy();
     res.redirect('/');
 });
-router.get('/update', async (req, res, next) => {
+router.get('/update', isLoggedIn_OnlyStudent, async (req, res, next) => {
   let user_email = req.user.email;
   let user_authority = req.user.authority;
   if(user_authority < 200) {

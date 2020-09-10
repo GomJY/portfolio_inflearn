@@ -81,3 +81,27 @@ CREATE TABLE `lectures` (
   CONSTRAINT `user_lecture` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
+
+## questions
+```
+CREATE TABLE `questions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `descript` text NOT NULL,
+  `user_id` int NOT NULL,
+  `createdTime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+```
+
+## questions_comments
+```
+CREATE TABLE `questions_comments` (
+  `question_id` int NOT NULL,
+  `commentId` int NOT NULL,
+  PRIMARY KEY (`question_id`),
+  KEY `comment_commeterId_idx` (`commentId`),
+  CONSTRAINT `comment_commetId` FOREIGN KEY (`commentId`) REFERENCES `questions` (`id`),
+  CONSTRAINT `comment_questionId` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+```
