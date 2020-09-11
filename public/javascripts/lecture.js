@@ -25,5 +25,4 @@ document.querySelector(".button-lecture_question").addEventListener("click", e =
   e.stopPropagation();
 
   document.querySelector("#layer-question").style.display = "block";
-  // modal_on(document.querySelector("#layer-question"));
 });

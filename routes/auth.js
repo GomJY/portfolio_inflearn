@@ -39,7 +39,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) =>{
             return next(authError);        
         }
         if (!user) {
-            return res.json({code: 400,message: info});
+            return res.json({code: 400, ...info});
         }
         return req.login(user, (loginError) => {
             if (loginError) {
