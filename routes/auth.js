@@ -47,7 +47,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) =>{
               return next(loginError);
             }
             console.log('!!!loginSuccess');
-            return res.redirect('/');
+            return res.json({code: 200, message: "로그인을 안료했습니다."});
+            // return res.redirect('/');
           });
     })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.;
 });
