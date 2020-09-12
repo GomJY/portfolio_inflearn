@@ -17,6 +17,8 @@ routingGroup.auth = require('./routes/auth');
 routingGroup.upload = require('./routes/upload');
 routingGroup.question = require('./routes/question');
 routingGroup.lecture = require('./routes/lecture');
+routingGroup.resistation = require('./routes/resistation');
+routingGroup.search = require('./routes/search');
 
 const app = express();
 passportConfig(passport);
@@ -51,19 +53,21 @@ app.use('/auth', routingGroup.auth);
 app.use('/upload', routingGroup.upload);
 app.use('/question', routingGroup.question);
 app.use('/lecture', routingGroup.lecture);
-
+app.use('/resistation', routingGroup.resistation);
+app.use('/search', routingGroup.search);
+app.use('/video', [require('./routes/video'), express.static(path.join(__dirname,'upload','video'))]);
 
 app.use((req, res, next) => {
-  console.log("NotFound1");
+  // console.log("NotFound1");
   const err = new Error('!!!Not Found');
   err.status = 404;
   // next(err);
-  res.render('notfound');
+  res.status(404).render('notfound');
 });
 
 // error handler
-app.use((err, req, res) => {
-  console.log("ErrorFind");
+app.use((err, req, res, next) => {
+  // console.log("ErrorFind");
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

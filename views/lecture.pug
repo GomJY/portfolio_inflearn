@@ -73,7 +73,7 @@ block content
                       span.icon_time.icon
                       span 78:22
                 each chapter, chapter_index in section.chapterArr
-                   .section_item(index=`${section_index + 1}_${chapter_index + 1}`, lecture=lecture_Data.name, chapter=chapter.name)
+                   .section_item(index=`${section_index + 1}_${chapter_index + 1}`, lecture=lecture_Data.name, chapter=chapter.name, class=isResistation ? "on" : "off")
                       span.icon_play.icon
                       span.tit=chapter.name
                       span.totalInfo
@@ -127,12 +127,10 @@ block content
       .descript
         .buttonGroup.row
           if lecture_Data.price == 0 
-            
-          else
             .align_center
               button.button_pay_now.button.orangeButton(onclick="requestPay()") 선불로 결제 하기(결제테스트용)
             .align_center
-              button.button_pay_after.button.greenButton 후불로 결제 하기 
+              button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
     .closeButton X
 
 block script

@@ -32,7 +32,31 @@ document.querySelector(".button-lecture_question").addEventListener("click", e =
 
   document.querySelector("#layer-question").style.display = "block";
 });
-
+function resistation(lecture_id) {
+  let data = {lecture_id: lecture_id};
+  let jsonData = JSON.stringify(data);
+  let url = location.origin + "/resistation";
+  $.ajax({
+    url : url,
+    type: "POST",
+    data : jsonData,
+    dataType: "json",
+    contentType: 'application/json',
+    success: function(data, textStatus, jqXHR)
+    {
+      alert(data.message);
+      if(data.code == 200) {
+        window.location = location.href;
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+      console.log(jqXHR, textStatus, errorThrown);
+      alert(jqXHR.responseJSON.message);
+      // alert("시스템에 문제가 생겼습니다.");
+    }
+  });
+}
 $(".layer-question").each((index, layer) => {
   layer.addEventListener("submit", e => {
     e.preventDefault();

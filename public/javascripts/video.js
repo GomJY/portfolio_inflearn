@@ -1,11 +1,10 @@
 //video
-let section_items = document.querySelectorAll(".section_item");
-
+let section_items = document.querySelectorAll(".section_item.on");
 section_items.forEach(item => item.addEventListener('click', (e) => {
   let section_item = e.target;
   let videoPlayer = document.querySelector("#videoPlayer");
   let count = 0;
-  while(section_item.className !== "section_item" && ++count < 10) {
+  while(section_item.className !== "section_item on" && ++count < 10) {
     section_item = section_item.parentNode;
   }
 

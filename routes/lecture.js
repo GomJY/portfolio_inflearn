@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var { QUERY } = require('../model');
+const path = require('path');
 // const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
 router.get("/", (req, res, next) => { res.send("lecture");})
 router.get('/:id', async (req, res, next) => {
@@ -30,15 +31,42 @@ router.get('/:id', async (req, res, next) => {
       order by Q.id DESC
         limit 5;
   `;
+  let resistations_sql = [];
+  console.log(req.user );
+  if(!(typeof req.user === "undefined")) {
+    resistations_sql = await QUERY`
+      SELECT *
+        FROM resistations AS R
+        WHERE 
+            R.users_id = ${req.user.id}
+          AND
+            R.lectures_id = ${sql[0].id};
+    `;
+    console.log(resistations_sql); 
+  }
+
   if(sql.length == 0) {
     next();
     return;
   }
   let {lecture_Data, section_chapter_Data} = sqlDataToLectureForm(sql);
+  let isResistation = resistations_sql.length == 0 ? false : true;
+  console.log("isResistation", isResistation);
   
-  
-  res.render('lecture', { title: '인프런 클론 - 강의', users: req.user,lecture_Data: lecture_Data, section_chapter_Data: section_chapter_Data, questions: question_sql});
+  res.render('lecture', { title: '인프런 클론 - 강의', users: req.user,lecture_Data: lecture_Data, section_chapter_Data: section_chapter_Data, questions: question_sql, isResistation: isResistation});
 });
+
+// router.get('/video', (req, res, next) => {
+//   console.log("test2");
+//   next();
+// },express.static(path.join(__dirname,'upload','video')));
+
+// router.get('/video/:test', (req, res, next) => {
+//   // res.json("test");
+//   console.log("test");
+//   return express.static(path.join(__dirname,'upload','video', req.params.test));
+// });
+// router.get('/video', express.static(path.join(__dirname,'upload', 'video')));
 
 module.exports = router;
 
