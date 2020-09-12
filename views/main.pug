@@ -15,16 +15,20 @@ block content
         .banner
           .main 모든 강의 보기
           .sub 다양한 강의를 인프런에서는 준비되습니다.
-        .gridContainer
-          each lecture in lectures_sql
-            .lectureCard
-              a(href=`/lecture/${lecture.id}`)
-                .image
-                  img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
-                .tit=lecture.name
-                .author=lecture.nickname
-                .score(value=5)
-                .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 
+       
+          if lectures_sql.length == 0
+            h1(style="font-size: 30px;margin-top: 20px;width: auto;padding: 10px 20px;background: #1dc078;color: #fff;border-radius: 8px;") 강의가 존재하지 않습니다.
+          else 
+            .gridContainer
+              each lecture in lectures_sql
+                .lectureCard
+                  a(href=`/lecture/${lecture.id}`)
+                    .image
+                      img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
+                    .tit=lecture.name
+                    .author=lecture.nickname
+                    .score(value=5)
+                    .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 
           //- .lectureCard
           //-   a(href="/lecture/test")
           //-     .image

@@ -91,12 +91,12 @@ router.post('/lecture', isLoggedIn_highTeacher, upload.array('chapter_media'), a
       section_tit.map(async (name) =>{
         console.log(`2[${index}==========section_sql`);
         console.log("lectures_sql.insertId.insertId", lectures_sql.insertId);
-        section_sql[index++] = await sections_INSERT({name: name, index: index + 1, lectures_id: lectures_sql.insertId});
+        section_sql[index++] = await sections_INSERT({name: name, index: index, lectures_id: lectures_sql.insertId});
         console.log("section_sql", section_sql);
       })
     );
   } else {
-    section_sql[0] = await sections_INSERT({name: section_tit, index: 1, lectures_id: lectures_sql.insertId});
+    section_sql[0] = await sections_INSERT({name: section_tit, index: 0, lectures_id: lectures_sql.insertId});
   }
   console.log("3sections_sql===================");
   if(typeof chapter_name === "object") {

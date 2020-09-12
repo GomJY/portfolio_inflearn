@@ -1,5 +1,6 @@
 //video
-let section_items = document.querySelectorAll(".section_item")
+let section_items = document.querySelectorAll(".section_item");
+
 section_items.forEach(item => item.addEventListener('click', (e) => {
   let section_item = e.target;
   let videoPlayer = document.querySelector("#videoPlayer");
@@ -15,9 +16,10 @@ section_items.forEach(item => item.addEventListener('click', (e) => {
 
   modal_on(videoLayer);
   let video_lecture = section_item.attributes.lecture.value;
-  let video_author = section_item.attributes.author.value;
   let video_index = section_item.attributes.index.value;
-  videoPlayer.src = `/video/${video_author}/${video_lecture}/${video_lecture}_${video_index}.mp4`;
+  let video_chapter = section_item.attributes.chapter.value;
+  videoPlayer.src = `/video/${video_lecture}_${video_index}.mp4`;
+  $("#layer-video .topMenu .tit").text(video_chapter);
 }));
 
 document.querySelector(".videoLayerClose").addEventListener("click", e => videoParse());

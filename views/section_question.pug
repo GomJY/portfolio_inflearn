@@ -1,7 +1,8 @@
 section#layer-question.modal-layer
       .container
         .tit 질문하기
-        form(action="/question", method="post")
+        form.layer-question(action="/question", method="post")
+          input(type="hidden", name="lecture_id", value=lecture_Data.id)
           .tit
             input#question_tit(type="text", name="tit" placeholder="질문 제목")
           .descript

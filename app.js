@@ -16,6 +16,7 @@ routingGroup.index = require('./routes/index');
 routingGroup.auth = require('./routes/auth');
 routingGroup.upload = require('./routes/upload');
 routingGroup.question = require('./routes/question');
+routingGroup.lecture = require('./routes/lecture');
 
 const app = express();
 passportConfig(passport);
@@ -49,9 +50,11 @@ app.use('/', routingGroup.index);
 app.use('/auth', routingGroup.auth);
 app.use('/upload', routingGroup.upload);
 app.use('/question', routingGroup.question);
+app.use('/lecture', routingGroup.lecture);
+
 
 app.use((req, res, next) => {
-  console.log("NotFound");
+  console.log("NotFound1");
   const err = new Error('!!!Not Found');
   err.status = 404;
   // next(err);
