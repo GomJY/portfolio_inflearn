@@ -8,14 +8,10 @@ $(".button_registration").on("click", e => {
 setLayer(0);
 function setLayer(index) {
   let headers = document.querySelectorAll('#bodyInfo .header_nav div');
-  console.log(headers);
   headers.forEach(header => {
-    console.log(header.className);
     header.className =header.className.replace("on", "");
-    console.log(header.className);
   });
   headers[index].className = headers[index].className + " on"; 
-  console.log(headers[index].className);
   showLectureLayer(index);
 }
 
@@ -26,12 +22,40 @@ function showLectureLayer(index) {
   }
   layers[index].className = layers[index].className + " on";
 }
+
+$(".button_like").on("click", (e) => {
+  let lectures_id = $(e.target).attr("lectures_id");
+  let url = location.origin + "/lecture/like";
+
+  $.ajax({
+    url : url,
+    type: "POST",
+    data : JSON.stringify({lectures_id: lectures_id}),
+    dataType: "json",
+    contentType: 'application/json',
+    success: function(data, textStatus, jqXHR)
+    {
+      alert(data.message);
+      if(data.code == 200) {
+        window.location = location.href;
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+      console.log(jqXHR, textStatus, errorThrown);
+      alert(jqXHR.responseJSON.message);
+      // alert("시스템에 문제가 생겼습니다.");
+    }
+  });
+  
+});
 document.querySelector(".button-lecture_question").addEventListener("click", e => {
   e.preventDefault();     
   e.stopPropagation();
 
   document.querySelector("#layer-question").style.display = "block";
 });
+
 function resistation(lecture_id) {
   let data = {lecture_id: lecture_id};
   let jsonData = JSON.stringify(data);

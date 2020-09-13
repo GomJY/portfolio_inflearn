@@ -57,8 +57,9 @@ html(lang="ko")
               span.icon_downArrow.icon.ir_pm 자세히 아이콘
       .rightMenu
         .searchContent
-          input#searchText(type="text", name="search")
-          span.icon_search.icon.ir_pm 검색
+          form(action="/search", method="get")
+            input#searchText(type="text", name="search")
+            span.icon_search.icon.ir_pm 검색  
         if users
           if users.authority >= 200
             .createLecture

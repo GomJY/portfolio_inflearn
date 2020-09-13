@@ -54,7 +54,7 @@ app.use('/upload', routingGroup.upload);
 app.use('/question', routingGroup.question);
 app.use('/lecture', routingGroup.lecture);
 app.use('/resistation', routingGroup.resistation);
-app.use('/search', routingGroup.search);
+app.use('/search', routingGroup.search  );
 app.use('/video', [require('./routes/video'), express.static(path.join(__dirname,'upload','video'))]);
 
 app.use((req, res, next) => {

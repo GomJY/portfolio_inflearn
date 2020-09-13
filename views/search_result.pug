@@ -1,0 +1,32 @@
+extends mainLayout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/main.css")
+  section#main
+    section#search
+      .container
+        .tit 인프런에서 연봉을 올리세요
+        .search
+          form(action="/search", method="get")
+            input#searchText(type="text", name="search" value=search_name)
+            span.icon_search.icon.ir_pm 검색
+    
+    section#lecture
+      .container
+        .banner
+          .main= search_name + "검색 결과"
+          .sub 다양한 강의를 인프런에서는 준비되습니다.
+
+          if lectures_sql.length == 0
+            h1(style="font-size: 30px;margin-top: 20px;width: auto;padding: 10px 20px;background: #1dc078;color: #fff;border-radius: 8px;") 검색 결과가 존재하지 않습니다.
+          else 
+            .gridContainer
+              each lecture in lectures_sql
+                .lectureCard
+                  a(href=`/lecture/${lecture.id}`)
+                    .image
+                      img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
+                    .tit=lecture.name
+                    .author=lecture.nickname
+                    .score(value=5)
+                    .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 

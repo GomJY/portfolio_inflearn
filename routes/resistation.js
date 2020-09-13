@@ -3,6 +3,7 @@ const passport = require('passport');
 var { QUERY, SET, VALUES } = require('../model');
 const router = require('./auth');
 const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher, isLoggedIn_OnlyStudent} = require('./middlewares');
+const { getNowDateTime } = require('../myModule/time');
 
 router.post('/', isLoggedIn, async (req, res, next) => {
   let user_id = req.user.id;
@@ -13,6 +14,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   `;
   if(isUser_sql.length > 0 ) {
     res.json({code: 401, message: "이미 수강신청한 강의입니다."});
+    return;
   }
   
   let lectures_sql = await QUERY`
@@ -20,6 +22,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   `;
   if(lectures_sql.length == 0) {
     res.json({code: 403, message: "해당 강의는 존재하지 않습니다.."});
+    return;
   }
   let {name, price} = lectures_sql[0];
   
@@ -29,9 +32,3 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   res.json({code: 200, message: "수강신청을 완료하였습니다."});
 });
 module.exports = router;
-
-function getNowDateTime() {
-  let dateTime = new Date();
-  let formStrTime = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()} ${dateTime.getHours()}:${dateTime.getMinutes()}`;
-  return formStrTime;
-}

@@ -3,6 +3,7 @@ var router = express.Router();
 var { QUERY, SET, VALUES } = require('../model');
 const multer = require('multer');	
 const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
+const { getNowDateTime } = require('../myModule/time');
 let count = 0;
 
 //multer 의 diskStorage를 정의
@@ -128,10 +129,4 @@ router.post('/lecture/duplicate', async(req, res, next) => {
   }
   res.json({code: 200, message: "해당 제목으로 강의를 생성 할 수 있습니다."});
 });
-
-function getNowDateTime() {
-  let dateTime = new Date();
-  let formStrTime = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()} ${dateTime.getHours()}:${dateTime.getMinutes()}`;
-  return formStrTime;
-}
 module.exports = router;

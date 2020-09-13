@@ -15,16 +15,20 @@ block content
               p
               .top
                 span.author
-                  strong=`작성자:${data.nickname}` 
-                span.time 2일전
+                  strong=`작성자: ${data.nickname}` 
+                span.time=data.createdTime.toISOString().split("T")[0] + " " +data.createdTime.toISOString().split("T")[1].slice(0, 5)
               pre.descript=data.descript
       .card.input_card
         .main_tit 답변 작성하기
         //- .tit
         //-   input#tit_text(type="text", name="tit_text" placeholder="질문 제목")
-        .textArea
-          textarea#descript_text(name="text", cols="30", rows="10" placeholder="답변 내용")
-        .submit
-          input(type="hidden", name="lectures_id" value=`${questionData[0].lectures_id}`)
-          input(type="hidden", name="groupId" value=`${questionData[0].question_id}`)
-          input.greenButton(type="submit", value="작성하기")
+        form#form-comment(action="/question/comment" method="post")
+          .textArea
+            textarea#descript_text(name="descript", cols="30", rows="10" placeholder="답변 내용")
+          .submit
+            input(type="hidden", name="name" value=`RE:${questionData[0].name}`)
+            input(type="hidden", name="lectures_id" value=`${questionData[0].lecture_id}`)
+            input(type="hidden", name="questions_id" value=`${questionData[0].question_id}`)
+            input.greenButton(type="submit", value="작성하기")
+block script
+  script(src="/javascripts/question_detail.js")

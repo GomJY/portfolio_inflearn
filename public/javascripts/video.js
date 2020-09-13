@@ -1,5 +1,11 @@
 //video
 let section_items = document.querySelectorAll(".section_item.on");
+$(".section_item.off").each((index, item) => {
+  $(item).on("click", (e) => {
+    alert("수강신청을 하신후에 시청하실수 있습니다.");
+  });
+});
+
 section_items.forEach(item => item.addEventListener('click', (e) => {
   let section_item = e.target;
   let videoPlayer = document.querySelector("#videoPlayer");

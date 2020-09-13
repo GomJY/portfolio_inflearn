@@ -18,15 +18,14 @@ block content
             .price=lecture_Data.price == 0 ? "무료" : "₩" + lecture_Data.price
           .buttonGroup
             button.button.button_registration.greenButton 수강신청
-            button.button.button_like 좋아요 86
-            button.button.button_share 공유하기
+            button.button.button_like(lectures_id=lecture_Data.id style="grid-column: 1/ span 2")=(like.isLike ? "싫어요" : "좋아요") + like.num
           .infoGroup
             .info_line 지식공유자: 
               strong=lecture_Data.author
-            .info_line 기간: 56회 수업 · 총 
-              strong 13시간  
-              strong 18분
-              span  수업
+            .info_line
+              span  강의 출시 날짜:  
+              strong=lecture_Data.createdTime.toISOString().split("T")[0] + " " +lecture_Data.createdTime.toISOString().split("T")[1].slice(0, 5)
+              
               
   include ./layer_videoPlayer
 
@@ -51,15 +50,6 @@ block content
         
       #lectureList.lectureList.layer
           .main_tit 교육과정
-          //- .totalInfo
-          //-   span.total_num
-          //-     span.val 10
-          //-     span.col 강의
-          //-   span.total_time
-          //-     span.val.hour 22
-          //-     span.col 시간
-          //-     span.val.hour 33
-          //-     span.col 분
           each section, section_index in section_chapter_Data
             .section
               .section_list
@@ -71,7 +61,6 @@ block content
                       span.col 강의
                     .total_time
                       span.icon_time.icon
-                      span 78:22
                 each chapter, chapter_index in section.chapterArr
                    .section_item(index=`${section_index + 1}_${chapter_index + 1}`, lecture=lecture_Data.name, chapter=chapter.name, class=isResistation ? "on" : "off")
                       span.icon_play.icon
@@ -79,7 +68,6 @@ block content
                       span.totalInfo
                         .total_time
                           span.icon_time.icon
-                          span 11:07
       //- Q & A
       .layer#QnA
         .main_tit 질문과답변
@@ -100,7 +88,7 @@ block content
                       span.tit=question.name
                       span.author
                         strong=question.nickname
-                      span.time 2일전
+                      span.time=question.createdTime.toISOString().split("T")[0] + " " +question.createdTime.toISOString().split("T")[1].slice(0, 5)
                     pre.descript=question.descript
                   //- .bottomInfo
                   //-   span

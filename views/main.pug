@@ -7,8 +7,9 @@ block content
       .container
         .tit 인프런에서 연봉을 올리세요
         .search
-          input#searchText(type="text", name="search")
-          span.icon_search.icon.ir_pm 검색
+          form(action="/search", method="get")
+            input#searchText(type="text", name="search")
+            span.icon_search.icon.ir_pm 검색
     
     section#lecture
       .container
@@ -61,25 +62,27 @@ block content
           .main 최근 묻고 답하기
           .sub 서로 소통하며 코딩 능력 && 소통 능력 == true
         .gridContainer
-          .card
-            .tit
-              span.logo.questionLogo Q.
-              span 질문
-            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
-          .card
-            .tit
-              span.logo.questionLogo Q.
-              span 질문
-            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
-          .card
-            .tit
-              span.logo.questionLogo Q.
-              span 질문
-            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
-          .card
-            .tit
-              span.logo.questionLogo Q.
-              span 질문
-            .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만 이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만
+          each question in questions_sql
+            a(href="/question/" + question.id)
+              .card
+                .tit
+                  span.logo.questionLogo Q.
+                  span=question.name
+                .desc=question.descript 
+          //- .card
+          //-   .tit
+          //-     span.logo.questionLogo Q.
+          //-     span 질문
+          //-   .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
+          //- .card
+          //-   .tit
+          //-     span.logo.questionLogo Q.
+          //-     span 질문
+          //-   .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만..
+          //- .card
+          //-   .tit
+          //-     span.logo.questionLogo Q.
+          //-     span 질문
+          //-   .desc 안녕하세요. 질문이 있습니다. 이곳은 처음 방문 하지만 이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만이곳은 처음 방문 하지만
 
 
