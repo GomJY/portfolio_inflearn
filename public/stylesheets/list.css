@@ -1,0 +1,17 @@
+.search .gridContainer { grid-template-columns: repeat(3, 1fr);}
+.gridContainer input[type=radio] {
+  display: none;
+}
+.gridContainer .button { display: block; color: #666;}
+input:checked ~ label {
+  background-color: green !important;
+  color: #fff !important;
+}
+
+.search_item {
+  position: relative;
+}
+
+#lecture .container .bottom {
+  margin-top: 30px;
+}

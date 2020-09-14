@@ -19,6 +19,7 @@ routingGroup.question = require('./routes/question');
 routingGroup.lecture = require('./routes/lecture');
 routingGroup.resistation = require('./routes/resistation');
 routingGroup.search = require('./routes/search');
+routingGroup.list = require('./routes/list');
 
 const app = express();
 passportConfig(passport);
@@ -56,6 +57,7 @@ app.use('/lecture', routingGroup.lecture);
 app.use('/resistation', routingGroup.resistation);
 app.use('/search', routingGroup.search  );
 app.use('/video', [require('./routes/video'), express.static(path.join(__dirname,'upload','video'))]);
+app.use('/list', routingGroup.list);
 
 app.use((req, res, next) => {
   // console.log("NotFound1");

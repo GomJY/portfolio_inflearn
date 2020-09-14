@@ -352,32 +352,7 @@ left: 10px;
   font-weight: bold;
   font-size: 20px;
 }
-.bottom {
-  display: flex;
-}
-.bottom .navSelector {
-  width: 60%;
-  text-align: center;
-  line-height: 30px;
-}
-.bottom .navSelector .button {
-  margin-right: 8px;
-}
-.button.on {
-  background: #1dc078;
-  color: #fff;
-}
-.bottom .nextButton, .bottom .prevButton {
-  width: 20%;
-  text-align: center;
-}  
-.bottom .button {
-  font-size: 14px;
-  padding: 5px 10px;
-  width: auto;
-  height: auto;
-  margin: 0;
-}
+
 .create input, .create textarea {
   font-size: 22px;
   width: 100%;

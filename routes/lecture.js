@@ -38,11 +38,22 @@ router.get('/:id', async (req, res, next) => {
       JOIN questions AS Q ON
           QC.question_id = Q.id
             AND
-          Q.lecture_id = 1
+          Q.lecture_id = ${id}
       JOIN users AS U ON
         U.id = Q.user_id
       order by Q.id desc
         limit 5
+  `;
+  let questions_count = await QUERY`
+  SELECT COUNT(*)
+    FROM (SELECT DISTINCT question_id
+      FROM questions_comments 
+      ORDER BY question_id DESC
+      ) QC
+    JOIN questions AS Q ON
+        QC.question_id = Q.id
+        AND
+      Q.lecture_id = ${id}
   `;
 
   //수강신청 확인을 위한 변수
@@ -81,7 +92,8 @@ router.get('/:id', async (req, res, next) => {
     title: '인프런 클론 - 강의', users: req.user,
     lecture_Data: lecture_Data, 
     section_chapter_Data: section_chapter_Data, 
-    questions: question_sql, 
+    questions: question_sql,
+    questions_count: questions_count[0]["COUNT(*)"], 
     isResistation: isResistation, 
     like: {isLike: isLike, num: like_sql.length}
   });
