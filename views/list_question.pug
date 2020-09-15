@@ -1,0 +1,53 @@
+extends mainLayout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/main.css")
+  link(rel="stylesheet", href="/stylesheets/list.css")
+  section#main
+    section#search
+      .container
+        .search 
+          form(action="/search/question", method="get")
+            .search_item
+              input#searchText(type="text", name="search")
+              span.icon_search.icon.ir_pm 검색
+            .gridContainer 
+              .item
+                input#radio_name(type="radio", name="column" value="name" checked)
+                label.button(for="radio_name") 제목
+              .item
+                input#radio_descript(type="radio", name="column" value="descript" )
+                label.button(for="radio_descript") 내용
+              .item
+                input#radio_author(type="radio", name="column" value="author" )
+                label.button(for="radio_author") 작성자
+
+    section#question
+      .container
+        .cardList
+          each question in questions_sql
+            a(href=`/question/${question.id}`)
+              .card
+                .authorIcon
+                  img(src="/images/profile/default_profile.png", alt="사용자 이미지")
+                .content
+                  .top
+                    span.tit=question.name
+                    span.author
+                      strong=question.nickname
+                    span.time=question.createdTime.toISOString().split("T")[0] + " " +question.createdTime.toISOString().split("T")[1].slice(0, 5)
+                  pre.descript=question.descript
+        .bottom
+          span.prevButton
+            //- button.button.greenButton 이전페이지
+          span.navSelector
+            - for(let i =0; i < 5; i++)
+              if i === 0
+                span.button.on=i + 1
+              else if i < (Math.floor(questions_count / 12) + (questions_count % 12 > 0 ? 1 : 0))
+                span.button=i + 1
+          span.nextButton
+            if (questions_count / 5) > 5
+              button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
+block script
+  script(src="/javascripts/list.js")

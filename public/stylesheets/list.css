@@ -15,3 +15,53 @@ input:checked ~ label {
 #lecture .container .bottom {
   margin-top: 30px;
 }
+
+
+/* question */
+
+.authorIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  left: 20px;
+  overflow: hidden;
+}
+
+#question .cardList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+#question .cardList .card {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 3px rgba(0,10,18,.1), 0 0 0 1px rgba(0,10,18,.1);
+  margin-bottom: 20px;
+  padding-left: 10%;
+  padding-right: 30px;
+}
+#question .cardList .card .tit {
+  font-size: 18px;
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+}
+#question .cardList .top > span { margin-right: 10px;}
+.card .descript {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  max-height: 4.5rem;
+  margin-bottom: 20px;
+}
+.card .bottomInfo {
+  text-align: right;
+  padding-right: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}

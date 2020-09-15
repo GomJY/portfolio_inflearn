@@ -13,7 +13,7 @@ block content
               span.icon_search.icon.ir_pm 검색
             .gridContainer 
               .item
-                input#radio_name(type="radio", name="column" value="name" checked)
+                input#radio_name(type="radio", name="column" value="name")
                 label.button(for="radio_name") 제목
               .item
                 input#radio_descript(type="radio", name="column" value="descript" )
@@ -22,130 +22,35 @@ block content
                 input#radio_author(type="radio", name="column" value="author" )
                 label.button(for="radio_author") 저자
 
-    
-    section#lecture
-      .container
-          //- if lectures_sql.length == 0
-          //-   h1(style="font-size: 30px;margin-top: 20px;width: auto;padding: 10px 20px;background: #1dc078;color: #fff;border-radius: 8px;") 강의가 존재하지 않습니다.
-          //- else 
-          //-   .gridContainer
-          //-     each lecture in lectures_sql
-          //-       .lectureCard
-          //-         a(href=`/lecture/${lecture.id}`)
-          //-           .image
-          //-             img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
-          //-           .tit=lecture.name
-          //-           .author=lecture.nickname
-          //-           .score(value=5)
-          //-           .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 
-          .gridContainer
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
+    if lectures_sql
+      section#lecture
+        .container
+            if lectures_sql.length == 0
+              h1(style="font-size: 30px;margin-top: 20px;width: auto;padding: 10px 20px;background: #1dc078;color: #fff;border-radius: 8px;") 강의가 존재하지 않습니다.
+            else 
+              .gridContainer
+                each lecture in lectures_sql
+                  .lectureCard
+                    a(href=`/lecture/${lecture.id}`)
+                      .image
+                        img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
+                      .tit=lecture.name
+                      .author=lecture.nickName
+                      .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 
             
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
+            .bottom
+              span.prevButton
+              //-   button.button.greenButton 이전페이지
+              span.navSelector
+                -for(let i =0; i < 5; i++)
+                  if i === 0
+                    span.button.on=i + 1
+                  else if i < (Math.floor(lectures_count / 12) + (lectures_count % 12 > 0 ? 1 : 0))
+                    span.button=i + 1
+              span.nextButton
+              if (lectures_count / 12) > 5
+                  button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
 
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
-            .lectureCard
-              a(href="/lecture/test")
-                .image
-                  img(src="/images/lecture/spring1.png", alt="spring1")
-                .tit 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
-                .author 백기선
-                .score(value=5)
-                .price ₩24,750
 
-          .bottom
-            span.nextButton
-              button.button.greenButton 이전페이지
-            span.navSelector
-              span.button.on 1
-              span.button 2
-              span.button 3
-              span.button 4
-              span.button 5
-            span.nextButton
-              button.button.greenButton 다음페이지
+block script
+  script(src="/javascripts/list.js")

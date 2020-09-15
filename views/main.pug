@@ -28,7 +28,6 @@ block content
                       img(src=`/images/lecture/${lecture.name}.png`, alt=`${lecture.name}`)
                     .tit=lecture.name
                     .author=lecture.nickname
-                    .score(value=5)
                     .price=lecture.price == 0 ? "무료" : "₩"+lecture.price 
           //- .lectureCard
           //-   a(href="/lecture/test")

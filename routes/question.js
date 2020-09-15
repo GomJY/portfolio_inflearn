@@ -26,7 +26,8 @@ router.get('/:index', async(req, res, next) => {
             AND
             questions_comments.question_id= ${index}
       JOIN users ON
-        users.id = questions.user_id;
+        users.id = questions.user_id
+      ORDER BY questions_comments.commentId ASC;
   `;
   console.log(questionData);
   if(questionData.length == 0) {

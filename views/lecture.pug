@@ -83,7 +83,6 @@ block content
                   .authorIcon
                     img(src="/images/profile/default_profile.png", alt="사용자 이미지")
                   .content
-                    p
                     .top
                       span.tit=question.name
                       span.author
@@ -100,14 +99,14 @@ block content
             span.prevButton
             //-   button.button.greenButton 이전페이지
             span.navSelector
-              -for(let i =1; i <= 5; i++)
-                if i === 1
-                  span.button.on=i
-                else if i < (questions_count / 5 + (questions_count % 5 > 0 ? 1 : 0))
-                  span.button=i
+              -for(let i =0; i < 5; i++)
+                if i === 0
+                  span.button.on=i + 1
+                else if i < (Math.floor(lectures_count / 5) + (questions_count % 5 > 0 ? 1 : 0))
+                  span.button=i + 1
             span.nextButton
              if (questions_count / 5) > 5
-                button.button.greenButton 다음페이지
+                button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
      
   include ./section_question
   section#layer-registration.modal-layer
@@ -115,11 +114,12 @@ block content
       .tit 수강신청 - 결제 페이지
       .descript
         .buttonGroup.row
-          if lecture_Data.price == 0 
-            .align_center
+          .align_center
               button.button_pay_now.button.orangeButton(onclick="requestPay()") 선불로 결제 하기(결제테스트용)
-            .align_center
-              button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
+          .align_center
+            button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
+          //- if lecture_Data.price == 0 
+            
     .closeButton X
 
 block script

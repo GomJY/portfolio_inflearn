@@ -6,12 +6,13 @@ const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlew
 /* GET home page. */
 router.get('/',  async function(req, res, next) {
   let lectures_sql = await QUERY`
-    SELECT * 
-      FROM lectures
-      JOIN users ON 
-        users.id = lectures.user_id
-      order by lectures.id DESC
-        limit 4`;
+  SELECT lectures.*, users.nickname, users.email
+    FROM lectures
+    JOIN users ON 
+      users.id = lectures.user_id
+    order by lectures.id DESC
+      limit 4`;
+  console.log(lectures_sql);
   let questions_sql = await QUERY`
     SELECT questions.* 
       FROM questions_comments

@@ -12,7 +12,7 @@ router.get("/", async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   let id = req.params.id;
   let sql = await QUERY`
-    SELECT L.*, U.nickname, U.id, U.email, S.name AS sections_name, S.index AS sections_index, C.name AS chapters_name, C.index AS chapters_index
+    SELECT L.*, U.nickname, U.email, S.name AS sections_name, S.index AS sections_index, C.name AS chapters_name, C.index AS chapters_index
       FROM lectures AS L
       JOIN users AS U ON
           L.id = ${id}
@@ -87,7 +87,7 @@ router.get('/:id', async (req, res, next) => {
   let {lecture_Data, section_chapter_Data} = sqlDataToLectureForm(sql);
   let isResistation = resistations_sql.length == 0 ? false : true;
   let isLike = like_user_select_sql.length > 0 ? true : false;
-
+  
   res.render('lecture', { 
     title: '인프런 클론 - 강의', users: req.user,
     lecture_Data: lecture_Data, 
@@ -126,6 +126,34 @@ router.post("/like", isLoggedIn, async (req, res, next) => {
   res.json({code: 200, message: "좋아요 추가 완료"});
 });
 
+
+router.post('/question', async (req, res, next) => {
+  console.log("lecture/question/");
+  console.log(req.body);
+  const { lectures_id, last_id, selectPageNumber, nowPageNumber } = req.body;
+  const isPageUp = selectPageNumber > nowPageNumber;
+  
+  let moveCount = selectPageNumber > nowPageNumber ? selectPageNumber - nowPageNumber : nowPageNumber - selectPageNumber;
+  
+  let question_sql;
+  let temp_last_id = last_id;
+  while(moveCount-- > 0) {
+    question_sql = await pageQuery(isPageUp, lectures_id, temp_last_id);
+    temp_last_id = isPageUp ? question_sql[question_sql.length - 1].id : question_sql[0].id; 
+  }
+  const questions_count = await pageCountQuery(isPageUp, lectures_id, last_id);
+  const count = questions_count[0]["COUNT(*)"];
+  
+  res.json({
+    code: 200,
+    message: "page이동완료",
+    page: Math.floor(count / 5 + (count % 5 > 0 ? 1 : 0)),
+    question_sql: question_sql,
+    selectPageNumber, nowPageNumber
+  });
+
+});
+
 module.exports = router;
 
 function sqlDataToLectureForm(sqlData) {
@@ -137,6 +165,7 @@ function sqlDataToLectureForm(sqlData) {
     author: sqlData[0].nickname,
     createdTime: sqlData[0].createdTime,
   };
+
   let section_chapter_Data = [];
   sqlData.forEach((data, index) => {
     let sections_index = data.sections_index;
@@ -153,4 +182,58 @@ function sqlDataToLectureForm(sqlData) {
   });
 
   return {lecture_Data: lecturesData, section_chapter_Data: section_chapter_Data};
+}
+
+async function pageQuery(isPageUp, lectures_id, last_id) {
+    if(isPageUp) {
+      return await QUERY`
+      SELECT Q.*, U.email, U.nickname
+        FROM (SELECT DISTINCT question_id
+            FROM questions_comments 
+            ORDER BY question_id DESC
+            ) QC
+          JOIN questions AS Q ON
+          QC.question_id = Q.id
+          AND
+          Q.lecture_id = ${lectures_id}
+          AND
+          QC.question_id < ${last_id}
+          JOIN users AS U ON
+            U.id = Q.user_id
+          order by Q.id desc
+            limit 5
+      `;
+    } else {
+      return await QUERY`
+        SELECT Q.*, U.email, U.nickname
+          FROM (SELECT DISTINCT question_id
+              FROM questions_comments 
+              ORDER BY question_id DESC
+              ) QC
+            JOIN questions AS Q ON
+            QC.question_id = Q.id
+            AND
+            Q.lecture_id = ${lectures_id}
+            AND
+            (QC.question_id < ${parseInt(last_id) + 6} AND QC.question_id > ${last_id})
+            JOIN users AS U ON
+              U.id = Q.user_id
+            order by Q.id DESC
+              limit 5
+        `;
+    }
+}
+
+async function pageCountQuery(isPageUp, lectures_id, last_id) {
+  return await QUERY`
+  SELECT COUNT(*)
+    FROM (SELECT DISTINCT question_id
+      FROM questions_comments 
+      ORDER BY question_id DESC
+      ) QC
+    JOIN questions AS Q ON
+        QC.question_id = Q.id
+        AND
+        Q.lecture_id = ${lectures_id}
+  `;
 }
