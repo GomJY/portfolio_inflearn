@@ -25,7 +25,8 @@ $("#lecture").on("submit",async (e) => {
     contentType: false,
     cache: false,
     success: function (data) {
-        console.log("SUCCESS : ", data);
+      console.log("SUCCESS : ", data);
+      window.location = location.origin + "/lecture/" + data.lectures_id;
     },
     error: function (e) {
         console.log("ERROR : ", e);
@@ -35,6 +36,10 @@ $("#lecture").on("submit",async (e) => {
 function sendImgFile() {
   let lecture_tit = $("#input_title").val();
   let img_file = document.querySelector("#lecture_bg").files[0];
+  if(img_file.type === "image/jpeg") {
+    alert("저희는 png 파일만 사용하고 있습니다.");
+    return;
+  }
   let url = location.origin + '/upload/lecture/img';
   let formData = new FormData();
   formData.append("title", lecture_tit);
@@ -125,8 +130,6 @@ function findParentSectionAndItem(element) {
 
   return temp;
 }
-
-
 
 function template_create_section(id) {
   var temp = document.createElement('div');

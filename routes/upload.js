@@ -114,7 +114,8 @@ router.post('/lecture', isLoggedIn_highTeacher, upload.array('chapter_media'), a
   } else {
     chapter_sql[0][0] = await chapters_INSERT({name: chapter_name, index: 0, sections_id: section_sql[0].insertId});
   }
-  res.json(chapter_sql);  
+
+  res.json({code: 200, message: "강의 제작 완료", lectures_id: lectures_sql.insertId});  
 });
 
 router.post('/lecture/img', upload.single('lecture_bg'), async (req, res, next) => {

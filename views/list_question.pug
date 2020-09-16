@@ -24,30 +24,33 @@ block content
 
     section#question
       .container
-        .cardList
-          each question in questions_sql
-            a(href=`/question/${question.id}`)
-              .card
-                .authorIcon
-                  img(src="/images/profile/default_profile.png", alt="사용자 이미지")
-                .content
-                  .top
-                    span.tit=question.name
-                    span.author
-                      strong=question.nickname
-                    span.time=question.createdTime.toISOString().split("T")[0] + " " +question.createdTime.toISOString().split("T")[1].slice(0, 5)
-                  pre.descript=question.descript
-        .bottom
-          span.prevButton
-            //- button.button.greenButton 이전페이지
-          span.navSelector
-            - for(let i =0; i < 5; i++)
-              if i === 0
-                span.button.on=i + 1
-              else if i < (Math.floor(questions_count / 12) + (questions_count % 12 > 0 ? 1 : 0))
-                span.button=i + 1
-          span.nextButton
-            if (questions_count / 5) > 5
-              button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
+        if questions_sql.length == 0
+          h1(style="font-size: 30px;margin-top: 20px;width: auto;padding: 10px 20px;background: #1dc078;color: #fff;border-radius: 8px;") 질문글이 존재하지 않습니다.
+        else
+          .cardList
+            each question in questions_sql
+              a(href=`/question/${question.id}`)
+                .card
+                  .authorIcon
+                    img(src="/images/profile/default_profile.png", alt="사용자 이미지")
+                  .content
+                    .top
+                      span.tit=question.name
+                      span.author
+                        strong=question.nickname
+                      span.time=question.createdTime.toISOString().split("T")[0] + " " +question.createdTime.toISOString().split("T")[1].slice(0, 5)
+                    pre.descript=question.descript
+          .bottom
+            span.prevButton
+              //- button.button.greenButton 이전페이지
+            span.navSelector
+              - for(let i =0; i < 5; i++)
+                if i === 0
+                  span.button.on=i + 1
+                else if i < (Math.floor(questions_count / 12) + (questions_count % 12 > 0 ? 1 : 0))
+                  span.button=i + 1
+            span.nextButton
+              if (questions_count / 5) > 5
+                button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
 block script
   script(src="/javascripts/list.js")

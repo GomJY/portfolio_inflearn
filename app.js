@@ -6,9 +6,9 @@ const session = require('express-session');
 const passport = require('passport');
 const multer = require('multer');
 require('dotenv').config();
+require("./myModule/reset")();
 
 const port = 5901;
-
 const passportConfig = require('./passport'); 
 
 const routingGroup = new Object();

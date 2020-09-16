@@ -39,7 +39,8 @@
   font-size: 14.5px;
   text-align: left;
   margin-bottom: 0;
-  height: 50px;
+  height: 40px;
+  margin-top: 10px;
 }
 .lectureCard .image {
   height: 150px;
