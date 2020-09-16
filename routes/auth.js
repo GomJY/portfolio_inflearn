@@ -61,15 +61,32 @@ router.get('/logout', isLoggedIn, (req, res, next) => {
     res.redirect('/');
 });
 router.get('/update', isLoggedIn_OnlyStudent, async (req, res, next) => {
-  let user_email = req.user.email;
+  let user_id = req.user.id;
   let user_authority = req.user.authority;
   if(user_authority < 200) {
-    await QUERY`UPDATE users ${SET({ authority: 200 })} WHERE email = ${user_email}`;
+    await QUERY`UPDATE users ${SET({ authority: 200 })} WHERE id = ${user_id}`;
     res.redirect('/');
   } else {
     res.redirect('/');
     return;
   }
+});
+
+router.get('/kakao', passport.authenticate('kakao'));
+
+router.get('/kakao/callback', passport.authenticate('kakao', {
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/');
+});
+
+
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/google/callback', passport.authenticate('google', {
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/');
 });
 
 

@@ -24,7 +24,7 @@
   height: 46px;
   line-height: 46px;
 }
-.join .item .inputBox, .authJoin > button {
+.join .item .inputBox, .authJoin > a {
   width: 300px;
   height: 46px;
   padding: 4px 8px;
@@ -48,18 +48,19 @@
 .authJoin {
   padding-left: 40px;
 } 
-.authJoin > button {
+.authJoin > a {
   display: block;
   margin-bottom: 20px;
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+  text-align: center;
   cursor: pointer;
 }
-.join input, .authJoin button {
+.join input, .authJoin a {
   border: 1px solid #d5d5d5;
 }
 .authGoogle { background: #c65545;}
 .authFacebook { background: #335ca6;}
 .authGithub { background: #3c4043;}
-button.authApple { background: #fff; color: #111;}
+a.authKakao { background: #ffe812;}

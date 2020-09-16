@@ -29,10 +29,10 @@ block content
                 span.boldGreenColor 개인정보취급방침
                 span 에 동의합니다.
       .authJoin
-        button.authGoogle 구글 가입
-        button.authFacebook 페이스북 가입
-        button.authGithub 깃허브 가입
-        button.authApple 애플 가입
+        a.authGoogle(href="/auth/google") 구글 가입
+        a.authFacebook(href="/auth/facebook") 페이스북 가입
+        a.authGithub(href="/auth/github") 깃허브 가입
+        a.authKakao(href="/auth/kakao") 카카오 가입
 
 block script
   script(src="/javascripts/join.js")
