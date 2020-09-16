@@ -78,27 +78,6 @@ CREATE TABLE `questions_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
-## tags
-```
-CREATE TABLE `tags` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `createdTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
-
-## tags_and_lectures
-```
-CREATE TABLE `tags_and_lectures` (
-  `lectures_id` int(11) NOT NULL,
-  `tags_id` int(11) NOT NULL,
-  PRIMARY KEY (`lectures_id`),
-  KEY `tags_idx` (`tags_id`),
-  CONSTRAINT `lectures` FOREIGN KEY (`lectures_id`) REFERENCES `lectures` (`id`),
-  CONSTRAINT `tags` FOREIGN KEY (`tags_id`) REFERENCES `tags` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
 
 ## likes
 ```

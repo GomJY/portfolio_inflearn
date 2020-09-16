@@ -4,24 +4,6 @@ block content
   link(rel="stylesheet", href="/stylesheets/main.css")
   link(rel="stylesheet", href="/stylesheets/list.css")
   section#main
-    section#search
-      .container
-        .search 
-          form(action="/search/question", method="get")
-            .search_item
-              input#searchText(type="text", name="search")
-              span.icon_search.icon.ir_pm 검색
-            .gridContainer 
-              .item
-                input#radio_name(type="radio", name="column" value="name" checked)
-                label.button(for="radio_name") 제목
-              .item
-                input#radio_descript(type="radio", name="column" value="descript" )
-                label.button(for="radio_descript") 내용
-              .item
-                input#radio_author(type="radio", name="column" value="author" )
-                label.button(for="radio_author") 작성자
-
     section#question
       .container
         if questions_sql.length == 0
@@ -53,4 +35,4 @@ block content
               if (questions_count / 5) > 5
                 button.button.greenButton(onclick="pageClickEvent(null,6)") 다음페이지
 block script
-  script(src="/javascripts/list.js")
+  script(src="/javascripts/list_question.js")

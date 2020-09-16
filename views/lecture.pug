@@ -115,7 +115,7 @@ block content
       .descript
         .buttonGroup.row
           .align_center
-              button.button_pay_now.button.orangeButton(onclick="requestPay()") 선불로 결제 하기(결제테스트용)
+              button.button_pay_now.button.orangeButton(onclick=`requestPay("${lecture_Data.name}", ${lecture_Data.price})`) 선불로 결제 하기(결제테스트용)
           .align_center
             button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
           //- if lecture_Data.price == 0 

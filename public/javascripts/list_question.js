@@ -18,8 +18,9 @@ function pageClickEvent(e, selectPage = 0) {
   
   nowPageNumber = parseInt($(".navSelector span.on").text());
   const isPageUp = selectPageNumber > nowPageNumber;
-
-  let href = $(`#lecture .gridContainer > .lectureCard:${isPageUp ? "last-child()" : "first-child()"} a`).attr("href");
+  console.log(isPageUp, selectPageNumber, nowPageNumber);
+  let href = $(`#question .cardList > a:${isPageUp ? "last-child()" : "first-child()"}`).attr("href");
+  console.log(href);
   last_id =href.slice(href.lastIndexOf("/") + 1);
   console.log(last_id, selectPageNumber, nowPageNumber);
   pagePost(last_id, selectPageNumber, nowPageNumber);
@@ -28,7 +29,7 @@ function pageClickEvent(e, selectPage = 0) {
 function pagePost(last_id, selectPageNumber, nowPageNumber) {
   let data = {last_id, selectPageNumber, nowPageNumber};
   let jsonData = JSON.stringify(data);
-  let url = location.origin + "/list/lecture/page";
+  let url = location.origin + "/list/question/page";
   $.ajax({
     url : url,
     type: "POST",
@@ -53,9 +54,9 @@ function pagePost(last_id, selectPageNumber, nowPageNumber) {
 
 
 function pageReset(resData) {
-  const { lectures_sql, page, nowPageNumber, selectPageNumber } = resData;
-  $("#lecture .gridContainer").html(temp_lecture_cardList(lectures_sql));
-  $("#lecture .bottom").html(temp_bottom(selectPageNumber, page));
+  const { questions_sql, page, nowPageNumber, selectPageNumber } = resData;
+  $("#question .cardList").html(temp_question_cardList(questions_sql));
+  $("#question .bottom").html(temp_bottom(selectPageNumber, page));
   resetPageClickEvent();
 };
 
@@ -63,7 +64,7 @@ function temp_bottom(selectPageNumber, page) {
   let html = "";
   let pageRange = 0;
   let sumPage = selectPageNumber;
-  $(".QnA .bottom .button").off();
+  $(".bottom .button").off();
   console.log("sumPage", sumPage);
   while(sumPage > 0) {
     sumPage -= 5;
@@ -76,8 +77,8 @@ function temp_bottom(selectPageNumber, page) {
   </span>
   <span class="navSelector">
   `;
-  console.log(pageRange);
-  for(let i = pageRange - 5; i < pageRange && i < page; i++) {
+  
+  for(let i = pageRange - 5; i < pageRange && i < page-1; i++) {
     html+=`<span class="button ${selectPageNumber == i + 1 ? "on" : ""}">${i + 1}</span>`;
   }
   html +=`
@@ -86,29 +87,28 @@ function temp_bottom(selectPageNumber, page) {
     ${page > pageRange ?`<button class="button greenButton" onclick="pageClickEvent(null, ${pageRange + 1});"> 다음페이지 </button>` : ""}
   </span>
   `;
-
   return html;
 }
-function temp_lecture_cardList(lectures_sql) {
+function temp_question_cardList(questions_sql) {
   let html = "";
-  lectures_sql.forEach(item => html += temp_lecture_card(item));
+  console.log("temp_question_cardList", questions_sql);
+  questions_sql.forEach(item => html += temp_question_card(item));
   return html;
 }
 
-function temp_lecture_card(data) {
-  let {id, name, nickName, price} = data; 
+function temp_question_card(data) {
+  console.log(data);
+  let {id, name, nickname, descript} = data; 
   let html = `
-  <div class="lectureCard">
-    <a href="/lecture/${id}">
-      <div class="image">
-        <img src="/images/lecture/${name}.png" alt="${name}"/>
+  <a href="/question/${id}">
+    <div class="card">
+      <div class="authorIcon"><img src="/images/profile/default_profile.png" alt="사용자 이미지"></div>
+      <div class="content">
+        <div class="top"><span class="tit">${name}</span><span class="author"><strong>${nickname}</strong></span><span class="time">2020-09-15 17:07</span></div>
+        <pre class="descript">${descript}</pre>
       </div>
-      <div class="tit">${name}</div>
-      <div class="author">${nickName}</div>
-      <div class="score" value="5"></div>
-      <div class="price">${price === 0 ? "무료" : "₩"+price }</div>
-    </a>
-  </div>
+    </div>
+  </a>
   `;
   return html;
 }

@@ -83,6 +83,39 @@ router.get('/question', async function(req, res, next) {
   });
 });
 
+router.post('/question/page', async function(req, res, next) {
+  const { last_id, selectPageNumber, nowPageNumber } = req.body;
+  const isPageUp = selectPageNumber > nowPageNumber;
+
+  let moveCount = selectPageNumber > nowPageNumber ? selectPageNumber - nowPageNumber : nowPageNumber - selectPageNumber;
+  
+  let questions_sql;
+  let temp_last_id = last_id;
+  
+  while(moveCount-- > 0) {
+    questions_sql = await questions_pageQuery(isPageUp, temp_last_id);
+    console.log("moveCount", temp_last_id);
+    try {
+      temp_last_id = isPageUp ? questions_sql[questions_sql.length - 1].id : questions_sql[0].id; 
+    } catch(err) {
+      res.status(404).json({code: 404, message: "잘못된 파라미터"});
+    };
+    
+  }
+  const questions_count = await question_pageCountQuery();
+  const count = questions_count[0]["COUNT(*)"];
+  
+  res.json({
+    code: 200,
+    message: "page이동완료",
+    page: Math.floor(count / 12 + (count % 12 > 0 ? 1 : 0)),
+    questions_sql: questions_sql,
+    selectPageNumber, nowPageNumber
+  });
+});
+
+
+
 
 module.exports = router;
 
@@ -112,9 +145,55 @@ async function pageQuery(isPageUp, last_id) {
   }
 }
 
+async function questions_pageQuery(isPageUp, last_id) {
+  if(isPageUp) {
+
+    return await QUERY`
+    SELECT Q.*, U.email, U.nickname
+    FROM (SELECT DISTINCT question_id
+        FROM questions_comments 
+        ORDER BY question_id DESC
+        ) QC
+      JOIN questions AS Q ON
+        QC.question_id = Q.id
+        AND
+        QC.question_id < ${last_id}
+      JOIN users AS U ON
+        U.id = Q.user_id
+      order by Q.id desc
+      limit 12
+    `;
+  } else {
+    let sql = await QUERY`
+    SELECT Q.*, U.email, U.nickname
+    FROM (SELECT DISTINCT question_id
+        FROM questions_comments 
+        ORDER BY question_id DESC
+        ) QC
+      JOIN questions AS Q ON
+        QC.question_id = Q.id
+        AND
+       QC.question_id > ${last_id} 
+      JOIN users AS U ON
+        U.id = Q.user_id
+      order by Q.id ASC
+      limit 12
+    `;
+    let temp = [];
+    sql.forEach((item, index, arr) => { temp[arr.length - (index + 1)] = item; });
+    return temp;
+  }
+}
+
 async function pageCountQuery() {
   return await QUERY`
   SELECT COUNT(*)
     FROM lectures
+  `;
+}
+async function question_pageCountQuery() {
+  return await QUERY`
+  SELECT COUNT(*)
+    FROM questions
   `;
 }
