@@ -21,6 +21,11 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     res.json({code: 202, message: "해당 이메일은 이미 가입하셨습니다."});
     return;
   }
+  let select_nickname = await QUERY`SELECT * FROM users WHERE nickname = ${nickname}`;
+  if(select_nickname.length > 0) {
+    res.json({code: 202, message: "해당 닉네임은 이미 존재합니다."});
+    return;
+  }
 
   let password_hash = await bcrypt.hash(password, 12);
   const create_result = await QUERY`
@@ -84,6 +89,20 @@ router.get('/kakao/callback', passport.authenticate('kakao', {
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
 router.get('/google/callback', passport.authenticate('google', {
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+router.get('/facebook/callback', passport.authenticate('facebook', {
+  failureRedirect: '/',
+}), (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/github', passport.authenticate('github'));
+router.get('/github/callback', passport.authenticate('github', {
   failureRedirect: '/',
 }), (req, res) => {
   res.redirect('/');

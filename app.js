@@ -21,6 +21,7 @@ routingGroup.resistation = require('./routes/resistation');
 routingGroup.search = require('./routes/search');
 routingGroup.list = require('./routes/list');
 
+
 const app = express();
 passportConfig(passport);
 
@@ -47,6 +48,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(require('./myModule/security_log'));
 
 //2.routing_middleware use
 app.use('/', routingGroup.index);
