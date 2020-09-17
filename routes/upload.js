@@ -30,9 +30,7 @@ var storage = multer.diskStorage({
   filename : function(req, file, cb){
 	//파일명 설정을 돕기 위해 요청정보(req)와 파일(file)에 대한 정보를 전달함
     console.log("===== fileName =====", ++count);
-    console.log(file);
     try {
-      console.log(req.body);
       var testSn = req.body.title;
       var testQn = req.body.chapter_name;
       var mimeType = file.mimetype;
@@ -66,40 +64,32 @@ var storage = multer.diskStorage({
     } catch(err) {console.log(err);} 
   }
 });
-
 var upload = multer({storage: storage});
-// router.post('/lecture', isLoggedIn_highTeacher, upload.single('lecture_bg'),upload.array('chapter_media'), async (req, res, next) => {
+
 router.post('/lecture', isLoggedIn_highTeacher, upload.array('chapter_media'), async (req, res, next) => {
-  console.log("/letures");
   // INSERT문 
-  const lectures_INSERT = async ({name, price, descript, user_id}) =>
-    (await QUERY`INSERT INTO lectures ${VALUES({name: name, price: price, descript: descript, user_id: user_id,createdTime: getNowDateTime(), updatedTime: getNowDateTime()})}`);
+  const lectures_INSERT = async ({name, price, descript, user_id}) => (await QUERY
+      `INSERT INTO lectures ${VALUES({name: name, price: price, descript: descript, user_id: user_id,createdTime: getNowDateTime(), updatedTime: getNowDateTime()})}`);
   const sections_INSERT = async ({name, index, lectures_id}) => (await QUERY`INSERT INTO sections ${VALUES({name: name, index: index, lectures_id: lectures_id})}`);
   const chapters_INSERT = async ({name, index, sections_id}) => (await QUERY`INSERT INTO chapters ${VALUES({name: name, index: index, sections_id: sections_id})}`);
   
   let { title, descript, price, section_tit, chapter_name, chapter_index } = req.body; 
   
-  console.log(title, descript, price, section_tit);
   const lectures_sql =await lectures_INSERT({name: title, price: price, descript: descript, user_id: req.user.id});
+  
   let section_sql = [];
   let chapter_sql=Array(section_tit.length).fill(null).map(() => Array());
-  console.log("1. lectures_sql");
-  console.log("lectures_sql.insertId.insertId", lectures_sql.insertId);
   
   if(typeof section_tit === "object") {
     let index = 0;
     await Promise.all(
       section_tit.map(async (name) =>{
-        console.log(`2[${index}==========section_sql`);
-        console.log("lectures_sql.insertId.insertId", lectures_sql.insertId);
         section_sql[index++] = await sections_INSERT({name: name, index: index, lectures_id: lectures_sql.insertId});
-        console.log("section_sql", section_sql);
       })
     );
   } else {
     section_sql[0] = await sections_INSERT({name: section_tit, index: 0, lectures_id: lectures_sql.insertId});
   }
-  console.log("3sections_sql===================");
   if(typeof chapter_name === "object") {
     let index = 0;
     await Promise.all(
@@ -114,7 +104,6 @@ router.post('/lecture', isLoggedIn_highTeacher, upload.array('chapter_media'), a
   } else {
     chapter_sql[0][0] = await chapters_INSERT({name: chapter_name, index: 0, sections_id: section_sql[0].insertId});
   }
-
   res.json({code: 200, message: "강의 제작 완료", lectures_id: lectures_sql.insertId});  
 });
 
@@ -127,6 +116,7 @@ router.post('/lecture/duplicate', async(req, res, next) => {
   let sql = await QUERY`SELECT * FROM lectures where name=${name}`;
   if(sql.length > 0) {
     res.json({code: 401, message: "중복된 강의 제목이 있습니다."});
+    return;
   }
   res.json({code: 200, message: "해당 제목으로 강의를 생성 할 수 있습니다."});
 });

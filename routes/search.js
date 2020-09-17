@@ -52,7 +52,6 @@ router.get('/', async (req, res, next) => {
     `;
   }
 
-  
   res.render('search_result', 
   {
     title: `인프런 ${search_name} 검색 결과`, 

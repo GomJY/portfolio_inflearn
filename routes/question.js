@@ -4,17 +4,13 @@ var { QUERY, SET, VALUES, ASSOCIATE } = require('../model');
 const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
 const { getNowDateTime } = require('../myModule/time');
 
-// //테스트용
-// const questions_SELECT= async (id) => (await QUERY`SELECT `);
 const questions_INSERT= async (name, descript, user_id, lecture_id) => (await QUERY`INSERT INTO questions ${VALUES({name: name, descript: descript, user_id: user_id, lecture_id: lecture_id,createdTime: getNowDateTime()})}`);
 const comment_INSERT = async (question_id, commentId) => (await QUERY`INSERT INTO questions_comments ${VALUES({question_id: question_id, commentId: commentId})}`)
 const questions_comment_INSERT= async (name, descript, user_id, groupId, lecture_id) => {
-  // await QUERY`INSERT INTO sections ${VALUES({name: name, descript: descript, user_id: user_id, createdTime: getNowDateTime()})}`
   let question_sql = await questions_INSERT(name, descript, user_id, lecture_id);
   let comment_sql = await comment_INSERT(groupId, question_sql.insertId);
   return comment_sql;
 };
-
 
 router.get('/:index', async(req, res, next) => {
   let index = req.params.index;
@@ -29,11 +25,12 @@ router.get('/:index', async(req, res, next) => {
         users.id = questions.user_id
       ORDER BY questions_comments.commentId ASC;
   `;
-  console.log(questionData);
+  
   if(questionData.length == 0) {
     next();
-    // return;
+    return;
   }
+
   res.render('question_detail', {
     title: "질문 - "+ questionData[0].name, 
     users: req.user,
@@ -46,8 +43,9 @@ router.post('/', isLoggedIn ,async(req, res, next) => {
 
   if(tit.length === 0 || descript.length === 0) {
     res.json({code: 401, message: "질문글에 제목, 내용을 작성해주세요"});
+    return;
   }
-  console.log(tit, descript);
+
   const question_sql = await questions_INSERT(tit , descript, req.user.id, lecture_id);
   const comment_sql = await comment_INSERT(question_sql.insertId, question_sql.insertId);
   if(comment_sql) {
@@ -62,6 +60,7 @@ router.post('/comment', async(req, res, next) => {
   // || questions_id.length === 0
   if(descript.length === 0) {
     res.json({code: 401, message: "질문글에 내용을 작성해주세요"});
+    return;
   }
 
   for(let data of [name, lectures_id, questions_id]) {
@@ -72,8 +71,13 @@ router.post('/comment', async(req, res, next) => {
   }
 
   let sql = await questions_comment_INSERT(name, descript, req.user.id, questions_id, lectures_id);
+  
+  if(sql.length == 0 ) {
+    res.status(500).json({code: 500, message: "서버에 문제가 발생"});
+    return;
+  }
+
   res.json({code: 200, message: "답변 작성을 완료하셨습니다."});
-  // res.status(500).json({code: 500, message: "서버에 문제가 발생"});
 });
 
 module.exports = router;

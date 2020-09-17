@@ -65,6 +65,7 @@ router.get('/logout', isLoggedIn, (req, res, next) => {
     req.session.destroy();
     res.redirect('/');
 });
+
 router.get('/update', isLoggedIn_OnlyStudent, async (req, res, next) => {
   let user_id = req.user.id;
   let user_authority = req.user.authority;
@@ -77,17 +78,16 @@ router.get('/update', isLoggedIn_OnlyStudent, async (req, res, next) => {
   }
 });
 
-router.get('/kakao', passport.authenticate('kakao'));
 
+//oauth
+router.get('/kakao', passport.authenticate('kakao'));
 router.get('/kakao/callback', passport.authenticate('kakao', {
   failureRedirect: '/',
 }), (req, res) => {
   res.redirect('/');
 });
 
-
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
-
 router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/',
 }), (req, res) => {

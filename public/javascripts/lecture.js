@@ -3,7 +3,7 @@ let layer_registration = document.querySelector("#layer-registration");
 var test;
 resetPageClickEvent()
 
-$(".button_registration").on("click", e => {
+$(".button_registration.greenButton").on("click", e => {
   modal_on(layer_registration);
 });
 
@@ -239,6 +239,9 @@ $(".layer-question").each((index, layer) => {
       {
         alert(data.message);
         if(data.code == 200) {
+          $("#question_tit").val("");
+          $("#question_descript").val("");
+          modal_off($(".layer-question"));
           // window.location = location.origin;
         }
       },
@@ -250,3 +253,4 @@ $(".layer-question").each((index, layer) => {
     });
   });
 });
+

@@ -17,7 +17,10 @@ block content
           .priceGroup
             .price=lecture_Data.price == 0 ? "무료" : "₩" + lecture_Data.price
           .buttonGroup
-            button.button.button_registration.greenButton 수강신청
+            if isResistation
+              button.button.button_registration.grayButton 수강 신청중
+            else 
+              button.button.button_registration.greenButton 수강신청
             button.button.button_like(lectures_id=lecture_Data.id style="grid-column: 1/ span 2")=(like.isLike ? "싫어요" : "좋아요") + like.num
           .infoGroup
             .info_line 지식공유자: 
@@ -115,12 +118,14 @@ block content
       .descript
         .buttonGroup.row
           .align_center
-              button.button_pay_now.button.orangeButton(onclick=`requestPay("${lecture_Data.name}", ${lecture_Data.price})`) 선불로 결제 하기(결제테스트용)
+              button.button_pay_now.button.orangeButton(onclick=`requestPay("${lecture_Data.name}", ${lecture_Data.price}, resistation(${lecture_Data.id}))`) 선불로 결제 하기(결제테스트용)
           .align_center
             button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
           //- if lecture_Data.price == 0 
             
     .closeButton X
+
+  
 
 block script
   script(src="/javascripts/lecture.js")

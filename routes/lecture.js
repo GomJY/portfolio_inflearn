@@ -4,6 +4,7 @@ var { QUERY } = require('../model');
 const path = require('path');
 const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
 const { getNowDateTime } = require('../myModule/time');
+const { Console } = require('console');
 
 router.get("/", async (req, res, next) => { 
   res.send("lecture");
@@ -82,7 +83,6 @@ router.get('/:id', async (req, res, next) => {
         WHERE lectures_id = ${sql[0].id} AND users_id = ${req.user.id}
     `;
   }
-
 
   let {lecture_Data, section_chapter_Data} = sqlDataToLectureForm(sql);
   let isResistation = resistations_sql.length == 0 ? false : true;
@@ -168,7 +168,8 @@ function sqlDataToLectureForm(sqlData) {
 
   let section_chapter_Data = [];
   sqlData.forEach((data, index) => {
-    let sections_index = data.sections_index;
+    
+    let sections_index = data.sections_index == 0 ? 0 : data.sections_index - 1 ;
     let sections_name = data.sections_name;
     let chapters_index = data.chapters_index;
     let chapters_name = data.chapters_name;
@@ -178,6 +179,7 @@ function sqlDataToLectureForm(sqlData) {
         chapterArr: []
       };
     }
+    
     section_chapter_Data[sections_index].chapterArr[chapters_index] = {name: chapters_name};
   });
 

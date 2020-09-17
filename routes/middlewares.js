@@ -13,6 +13,8 @@ exports.isNotLoggedIn = (req, res, next) => {
         res.redirect('/');
     }
 };
+
+//학생등급인 경우에만
 exports.isLoggedIn_OnlyStudent = (req, res, next) => {
     if (req.isAuthenticated()) {
         if(req.user.authority == 100)
@@ -24,6 +26,7 @@ exports.isLoggedIn_OnlyStudent = (req, res, next) => {
     }
 };
 
+//지식공유자 등급 이상인 경우에만
 exports.isLoggedIn_highTeacher = (req, res, next) => {
     if (req.isAuthenticated()) {
         if(req.user.authority >= 200)

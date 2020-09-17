@@ -12,15 +12,19 @@ router.get('/',  async function(req, res, next) {
       users.id = lectures.user_id
     order by lectures.id DESC
       limit 4`;
-  console.log(lectures_sql);
+
   let questions_sql = await QUERY`
-    SELECT questions.* 
-      FROM questions_comments
-      JOIN questions ON
-        questions.id = questions_comments.question_id
-      order by questions.id DESC
-      limit 4`;
-  console.log(questions_sql);
+    SELECT Q.*
+    FROM (SELECT DISTINCT question_id
+        FROM questions_comments 
+        ORDER BY question_id DESC
+        ) QC
+      JOIN questions AS Q ON
+          QC.question_id = Q.id
+      order by Q.id DESC
+      limit 4;
+  `;
+      
   res.render('main', { 
     title: '인프런 클론', 
     users: req.user, 

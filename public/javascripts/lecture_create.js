@@ -1,19 +1,22 @@
 $("#lecture").on("submit",async (e) => {
   e.preventDefault();
   let formData = new FormData(e.target);
-  formDataCheck(formData);
-  console.log(1);
+  if(!formDataCheck(formData)) {
+    return;
+  };
   if(!await duplicateCheck()) { 
     console.log("duplicateCheck fail");
     return; 
   }
-  console.log(2);
-  if(!await sendImgFile()) { 
+  const result = await sendImgFile();
+  if(!result) { 
     console.log("sendImgFile fail");
     return;
   }
-  console.log(3);
 
+  let loading = document.querySelector("#layer-loading");
+  modal_on(loading);
+  
   formData.delete("lecture_bg");
   let url = location.origin + '/upload/lecture';
   $.ajax({
@@ -36,16 +39,20 @@ $("#lecture").on("submit",async (e) => {
 function sendImgFile() {
   let lecture_tit = $("#input_title").val();
   let img_file = document.querySelector("#lecture_bg").files[0];
-  if(img_file.type === "image/jpeg") {
-    alert("저희는 png 파일만 사용하고 있습니다.");
-    return;
-  }
+
   let url = location.origin + '/upload/lecture/img';
   let formData = new FormData();
   formData.append("title", lecture_tit);
   formData.append("lecture_bg", img_file);
-
+  console.log("img_file.type");
+  if(img_file.type !== "image/png") {
+    console.log("img_file.type", img_file.type);
+    alert("저희는 png 파일만 사용하고 있습니다.");
+    return false;
+  }
   return new Promise((res, rej) => {
+    console.log("img_file.type", img_file.type);
+
     $.ajax({
       type: "POST",
       enctype: 'multipart/form-data',
@@ -179,19 +186,18 @@ function formDataCheck(formData) {
   let isCheck = {section: false, chapter: false};
 
   for(let value of formData) {
-    console.log(value);
     if(!value[1]) {
       let input = $(`input[name=${value[0]}]`).attr("placeholder");
       alert(`정해진 양식을 채우지 못하셨습니다.`);
-      return;
+      return false;
     }
     if(value[0] === "chapter_media") {
       if(value[1].size == 0) {
         alert(`챕터 중 강의영상을 안올린 곳이 있습니다.`);
-        return;
+        return false;
       }else if(value[1].type !== "video/mp4") {
         alert(`챕터 중 강의영상이 아닌 다른파일을 올린 곳이 있습니다.`);
-        return;
+        return false;
       }
     }
     if(value[0] === "section_tit") {
@@ -203,8 +209,9 @@ function formDataCheck(formData) {
 
   if(!(isCheck.section && isCheck.chapter)) {
     alert(`섹션과 챕터를 추가해주세요.`);
-    return;
+    return false;
   }
+  return true;
 }
 
 function duplicateCheck() {

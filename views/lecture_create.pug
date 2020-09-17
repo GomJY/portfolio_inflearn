@@ -17,7 +17,7 @@ block content
               input#input_title(type="text" name="title" placeholder="강의 제목")
             .img
               label(for="lecture_bg") 강의 이미지
-              input#lecture_bg(type="file", name="lecture_bg", onchange="setThumbnail(event);")          
+              input#lecture_bg(type="file", name="lecture_bg", onchange="setThumbnail(event);", accept="image/png")          
                  
             //- .desc
             //-   .item
@@ -74,10 +74,19 @@ block content
     .top_tit 챕터 만들기
     .content
       input#input_chapterName(type="text", name="chapterName" placeholder="챕터이름")
-      input#input_tempMedia(type="file", name="tempMedia")
+      input#input_tempMedia(type="file", name="tempMedia", accept="video/mp4")
     .resultMenu
       button.button_makeChapter 챕터 만들기
     .closeButton X
+
+  section#layer-loading.modal-layer
+    .spinner.topSpinner
+      span
+        svg(xmlns='http://www.w3.org/2000/svg', width='28', height='28', viewBox='0 0 28 28', focusable='false')
+          circle(cx='14', cy='14', r='12', fill='none', stroke='#000', stroke-width='4', opacity='.15')
+          circle(pathLength='1', cx='14', cy='14', r='12', fill='none', stroke='#00A871', stroke-width='4', stroke-dasharray='27 57', stroke-linecap='round', stroke-linejoin='round')
+    h1.tit 업로드중입니다.
+
 
 block script
   script(src="/javascripts/lecture_create.js")

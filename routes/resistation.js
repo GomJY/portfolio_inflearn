@@ -29,6 +29,11 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   const insert_sql = await QUERY`
     INSERT INTO resistations (name, price, lectures_id, users_id, createdTime) VALUES (${name}, ${price}, ${lecture_id}, ${user_id}, ${getNowDateTime()})
   `;
+  if(insert_sql.length == 0 ) {
+    res.status(500).json({code: 500, message: "서버에 문제가 발생"});
+    return;
+  }
+
   res.json({code: 200, message: "수강신청을 완료하였습니다."});
 });
 module.exports = router;
