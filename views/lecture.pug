@@ -75,9 +75,7 @@ block content
       .layer#QnA
         .main_tit 질문과답변
         .QnA
-          form(action="./question", method="get")
-            input#searchText(type="text", name="qna_search")
-            input.button.greenButton(type="submit", value="검색")
+          .topMenu(style="height: 40px;")
             input.button-lecture_question.button.orangeButton(type="button", value="질문 만들기", style="position: absolute;right: 0;top: 20px;")
           .cardList
             each question in questions
@@ -118,7 +116,7 @@ block content
       .descript
         .buttonGroup.row
           .align_center
-              button.button_pay_now.button.orangeButton(onclick=`requestPay("${lecture_Data.name}", ${lecture_Data.price}, resistation(${lecture_Data.id}))`) 선불로 결제 하기(결제테스트용)
+              button.button_pay_now.button.orangeButton(onclick=`requestPay("${lecture_Data.name}", ${lecture_Data.price}, ${lecture_Data.id})`) 선불로 결제 하기(결제테스트용)
           .align_center
             button.button_pay_after.button.greenButton(onclick=`resistation(${lecture_Data.id})`) 후불로 결제 하기 
           //- if lecture_Data.price == 0 

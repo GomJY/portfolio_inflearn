@@ -1,6 +1,6 @@
 var IMP = window.IMP; // 생략가능
 IMP.init('imp71911393'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-function requestPay(name, price, callback) {
+function requestPay(name, price, id) {
   if(price > 1000) {
     alert("결제 테스트 중입니다. 1000원 보다 높은 가격은 무조건 1000원으로만 결제됩니다. ")
     price = 1000;
@@ -19,10 +19,9 @@ function requestPay(name, price, callback) {
         msg += '상점 거래ID : ' + rsp.merchant_uid;
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
-        callback;
+        resistation(id);
     } else {
         var msg = '결제에 실패하였습니다.';
-        msg += '에러내용 : ' + rsp.error_msg;
     }
     alert(msg);
   });
