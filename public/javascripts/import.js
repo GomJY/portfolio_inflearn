@@ -11,6 +11,7 @@ function requestPay(name, price, id) {
     merchant_uid : 'merchant_' + new Date().getTime(),
     name : name,
     amount : price,
+    buyer_name : "구매테스트",
     m_redirect_url : 'https://www.yourdomain.com/payments/complete'
   }, function(rsp) {
     if ( rsp.success ) {
