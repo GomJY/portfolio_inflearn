@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var { QUERY } = require('../model');
+const { route } = require('./auth');
 const { isLoggedIn, isNotLoggedIn, isLoggedIn_highTeacher } = require('./middlewares');
+const { mp4_to_hls } = require('../myModule/ffmpeg');
 
 /* GET home page. */
 router.get('/',  async function(req, res, next) {
@@ -40,6 +42,22 @@ router.get('/join', isNotLoggedIn, function(req, res, next) {
 router.get('/create/lecture', isLoggedIn_highTeacher, (req, res, next) => {
   console.log(req.params);
   res.render('lecture_create', {title: "강의 만들기", users: req.user });
+});
+
+router.get('/test', async (req, res, next) => {
+  mp4_to_hls("_1_1")
+    .then((data) => {
+      console.log("data",data);
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+});
+
+const fs = require("fs");
+router.get('/test2', async (req, res, next) => {
+  const m3 = await fs.readFileSync("upload/hls/_1_1.m3u8");
+  res.set({"content-type" : "video/MP2T"}).send(m3);
 });
 
 module.exports = router;

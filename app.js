@@ -49,7 +49,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('./myModule/security_log'));
+// app.use(require('./myModule/security_log'));
 
 //2.routing_middleware use
 app.use('/', routingGroup.index);
@@ -59,7 +59,7 @@ app.use('/question', routingGroup.question);
 app.use('/lecture', routingGroup.lecture);
 app.use('/resistation', routingGroup.resistation);
 app.use('/search', routingGroup.search  );
-app.use('/video', [require('./routes/video'), express.static(path.join(__dirname,'upload','video'))]);
+// app.use('/video', [require('./routes/video'), express.static(path.join(__dirname,'upload','video'))]);
 app.use('/list', routingGroup.list);
 
 app.use((req, res, next) => {
