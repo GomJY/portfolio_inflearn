@@ -46,8 +46,7 @@ FFMPEP으로 파일을 변환하여 HLS스트리밍을 하고 싶었지만,저�
 - **Git, Github - 형상관리**
 
 ## DB 구성도 💾
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b562f3ca-0389-4814-bbb4-d82733145aaa/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b562f3ca-0389-4814-bbb4-d82733145aaa/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/39614239/93670666-0612d980-fad8-11ea-8c96-040821b81d43.png)
 
 ## 스크린샷 및 UI 설명서🎑📘
 
@@ -70,3 +69,5 @@ FFMPEP으로 파일을 변환하여 HLS스트리밍을 하고 싶었지만,저�
 [인프런 클론](https://www.yeolju.com/)
 
 [인프런2020 회고록🙏](https://www.notion.so/2020-d09975acd3c7466a98c694660d138dea)
+
+### [노션링크](https://www.notion.so/2020-6d07be329fb24f81bf5b510793e9744b) 
