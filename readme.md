@@ -1,5 +1,5 @@
 ## 프로젝트 소개
-
+### [사이트 바로가기](https://www.yeolju.com/)
 인프런 기능중에서 강의를 결제하고, 글을 작성하며 커뮤니케이션을 할수 있는  인프런 클론 서비스를 제작해보았습니다.
 
 ### 프로젝트 기간: 2020/09/01 ~ 2020/09/20
@@ -62,12 +62,6 @@ FFMPEP으로 파일을 변환하여 HLS스트리밍을 하고 싶었지만,저�
 
 ### [Github 링크 바로가기](https://github.com/GomJY/portfolio_inflearn)
 
-[GomJY/portfolio_inflearn](https://github.com/GomJY/portfolio_inflearn)
-
-### [**인프런2020 클론**](https://www.yeolju.com/)💽 [**바로가기**](https://www.yeolju.com/)
-
-[인프런 클론](https://www.yeolju.com/)
-
+### [노션링크](https://www.notion.so/2020-6d07be329fb24f81bf5b510793e9744b) 
 [인프런2020 회고록🙏](https://www.notion.so/2020-d09975acd3c7466a98c694660d138dea)
 
-### [노션링크](https://www.notion.so/2020-6d07be329fb24f81bf5b510793e9744b) 
